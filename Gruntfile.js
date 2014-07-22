@@ -147,7 +147,7 @@ module.exports = function(grunt) {
 				options: {
 					port		: 8080,
 					livereload	: true,
-					base		: '<%= loc.markup %>'
+					base		: '<%= loc.root %>'
 				}
 			}
 		},
