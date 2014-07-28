@@ -21,8 +21,8 @@
     "grunt-contrib-less": "~0.11.3",
     "grunt-contrib-sass": "~0.7.3",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-sprites": "~0.2.1",
-    "jade-inheritance": "~0.1.0",
+    "grunt-sprites": "~0.2.2",
+    "grunt-jade-inheritance": "~0.1.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-merge-json": "~0.9.4"

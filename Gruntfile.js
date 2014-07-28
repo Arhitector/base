@@ -1,5 +1,3 @@
-var jadeInherit = require('./tasks/jadeInherit.js');
-
 module.exports = function(grunt) {
 	var CSSBuilder	= 'less', //less, sass
 		pkg			= grunt.file.readJSON('package.json');
@@ -194,10 +192,6 @@ module.exports = function(grunt) {
 		}
 	});
 
-
-//JADE inherit
-	jadeInherit(grunt);
-
 	grunt.loadNpmTasks('grunt-contrib-clean');		//clean other files
 	grunt.loadNpmTasks('grunt-contrib-less');		//convert less files to css
 	grunt.loadNpmTasks('grunt-contrib-sass');		//convert sass files to css
@@ -208,6 +202,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jade');		//convert jade templates to html
 	grunt.loadNpmTasks('grunt-sprites');			//make sprites
 	grunt.loadNpmTasks('grunt-merge-json');			//include json
+	grunt.loadNpmTasks('grunt-jade-inheritance');
 
 	grunt.registerTask('default', ['connect', 'merge-json', 'sprites', CSSBuilder, 'jade', 'watch']);
 	grunt.registerTask('all', ['sprites', CSSBuilder, 'jade', 'imagemin']);
