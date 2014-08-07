@@ -1,38 +1,37 @@
-mixin pagination (pagination_class, table_array, pagination_class_helper)
-	div(class="#{pagination_class}")
-		if table_array.config.button_first
-			+check_for_object_pagination(pagination_class+"_first", table_array.config.button_first, i)
-		if table_array.config.button_prev
-			+check_for_object_pagination(pagination_class+"_prev", table_array.config.button_prev, i)
-		div(class="#{pagination_class}"+"_link_box")
-			each item, i in table_array.massElem
-					+check_for_object_pagination(pagination_class, item, i)
-		if table_array.config.button_next
-			+check_for_object_pagination(pagination_class+"_next", table_array.config.button_next, i)
-		if table_array.config.button_last
-			+pagination_item(pagination_class, table_array.config.button_last, i)
+mixin pagination (array, key)
+	div(class!=attributes.class)
+		+pagination__sort (array, key)(class!=attributes.class)
 
-mixin check_for_object_pagination (pagination_class, item, i)
-	if item != "[object Object]"
-		a(class="#{pagination_class}"+"_link" href="#")
-			+create_item(pagination_class, item, i)
-	else 
-		if item.no_link
-			each item_deep, i in item
-					+check_for_object_pagination(pagination_class, item_deep, i)
-		else
-			each item_deep, i in item
-				if item_deep
-					span(class="#{pagination_class}"+"_not_link")
-						+create_item(pagination_class, item_deep, i)
+mixin pagination__sort (array, key)
+		each item, key in array
+			+pagination__check-for-object (item, key)(class!=attributes.class)
 
-
-mixin create_item (pagination_class, item, i)
-	| #{item}
-
-mixin pagination_item (pagination_class, item)
-	if item.indexOf(".png") != -1 || item.indexOf(".jpg") != -1 || item.indexOf(".gif") != -1
-		img(src="#{item}" class="#{pagination_class}"+"_first")
+mixin pagination__check-for-object (item, key)
+	if item == "[object Object]"
+		a(href="#" class!=attributes.class + "__item")
+			+pagination__sort (item, key)(class!=attributes.class + "__sub")
 	else
-		a(class="#{pagination_class}"+"_first") 
-			+create_item(pagination_class, item, i)
+		+pagination__check-for-nav (item, key)(class!=attributes.class)
+
+mixin pagination__check-for-nav (item, key)
+	case key 
+		when "first"
+			a(href="#" class!=attributes.class + "__item " + attributes.class + "__first")
+				|#{item}
+		when "last"
+			a(href="#" class!=attributes.class + "__item " + attributes.class + "__last")
+				|#{item}
+		when "prev"
+			a(href="#" class!=attributes.class + "__item " + attributes.class + "__prev")
+				|#{item}
+		when "next"
+			a(href="#" class!=attributes.class + "__item " + attributes.class + "__next")
+				|#{item}
+		when "span"
+			span(class!=attributes.class + "__item")
+				|#{item}
+		when "img"
+			img(src="#{item}" alt="" class!=attributes.class + "__img")
+		default
+			a(href="#" class!=attributes.class + "__item ")
+				|#{item}

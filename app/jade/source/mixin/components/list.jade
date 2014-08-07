@@ -1,52 +1,40 @@
-mixin list(list_class, array, helper_class)
+mixin list (array, key)
 	//- Create UL
-	ul(class=list_class+" "+helper_class )
-		//- go to all element in array
-		each item, i in array.massElem
-			//- if ISSET additional class in code add it
-			if item.additional_class 
-				li(class=list_class+"__item"+" "+item.additional_class )
-					//-  go to next mixin
-					+list_item_submenu_check(list_class, item, array)
-			else
-				li(class=list_class+"__item" )
-					//-  go to next mixin
-					+list_item_submenu_check(list_class, item, array)
-//- checking for submenu
-mixin list_item_submenu_check (list_class, item, array)
-	if item.submenu
-		+list_item_link(list_class, item, array)
-		+list(list_class+"__submenu", item.submenu, "")
+	ul(class!=attributes.class)
+		+list__sort-object(array, key)(class!=attributes.class)
 
+//- sort object
+mixin list__sort-object (item_array, key)
+	each item, key in item_array
+		+list__item (item, key)(class!=attributes.class)
+//- check item to object
+mixin list__check-for-object (item, key)
+	if item == "[object Object]"
+		+list (item, key)(class!=attributes.class + "__sub")
 	else
-		+list_item_link(list_class, item, array)
+		+list__check-for-tag (item, key)(class!=attributes.class)
 
-//- checking of need of the link
-mixin list_item_link(list_class, item, array)
-	if array.config.no_link && !item.need_link || item.no_link
-		+list_check_for_object(list_class, item, array)
-	else
-		if item.additional_class
-			a(class=list_class+"__item__link "+item.additional_class+"__link" href="#")
-				+list_check_for_object(list_class, item, array)
-		else
-			a(class=list_class+"__item__link" href="#")
-				+list_check_for_object(list_class, item, array)
+//- create item
+mixin list__item (item, key)
+	li(class!=attributes.class + "__item")
+		+list__check-for-object (item, key)(class!=attributes.class)
 
-//- checking item for object
-mixin list_check_for_object(list_class, item, array)
-	if item.val == "[object Object]"
-		+list_object_sort(list_class, item.val, array)
-	else
-		+list_item(list_class, item.val, array)
+//- if key has one of tag create such item
+mixin list__check-for-tag (item, key)
+	case key 
+		when "span"
+			span(class!=attributes.class + "__item__span")
+				|#{item}
+		when "em"
+			em(class!=attributes.class + "__item__em")
+				|#{item}
+		when "strong"
+			strong(class!=attributes.class + "__item__bold")
+				|#{item}
+		default
+			+list_envelope (item, key)(class!=attributes.class)
 
-mixin list_item(list_class, item, array)
-	//- add span for next words in item with class by key
-	if item.indexOf(".png") != -1 || item.indexOf(".jpg") != -1 || item.indexOf(".gif") != -1
-		img(src="#{item}"  class=list_class+"__item__link__img" alt="image")
-	else
-		| #{item}
-
-mixin list_object_sort(list_class, item, array)
-	each item_deep, i in item
-		+list_item(list_class, item_deep, array)
+//- create envelope text
+mixin list_envelope (item, key)
+	a(href="" class!=attributes.class + "__item__link")
+		|#{item}

@@ -1,13 +1,4 @@
 {
-	"list": {
-		"item1": "home",
-		"item2": "services",
-		"item3": "contacts",
-		"item4": {
-			"item1": "about",
-			"span": "about span"
-		}
-	},
 	"pagination_test": {
 		"first": "first",
 		"prev": "prev",
@@ -20,6 +11,7 @@
 		"last": {
 			"span": "last",
 			"img": "../images/img.png"
+			
 		}
 	}
 }

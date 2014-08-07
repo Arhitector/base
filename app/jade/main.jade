@@ -1,8 +1,10 @@
 extends ./source/extend/maintemp.jade
 include ./source/mixin/components/list.jade
+include ./source/mixin/components/pagination.jade
 
 block header
-	h1 header
+	+list(list)(class="main-menu")
+	+pagination(pagination_test)(class="pagination")
 block content
 	p content
 
