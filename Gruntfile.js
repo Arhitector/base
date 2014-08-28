@@ -169,6 +169,7 @@ module.exports = function(grunt) {
 					'<%= loc.build %>',
 					'node_modules',
 					'build',
+					'<%= loc.root %>/markup',
 					'npm-debug.log'
 				]
 			}
@@ -205,7 +206,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jade-inheritance');
 
 	grunt.registerTask('default', ['connect', 'merge-json', 'sprites', CSSBuilder, 'jade', 'watch']);
-	grunt.registerTask('all', ['sprites', CSSBuilder, 'jade', 'imagemin']);
+	grunt.registerTask('all', ['merge-json', 'sprites', CSSBuilder, 'jade', 'imagemin']);
 
 	grunt.registerTask('copy', [CSSBuilder, 'jade', 'imagemin', 'copy']);
 	grunt.registerTask('clear', ['clean:clear']);

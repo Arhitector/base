@@ -7,21 +7,35 @@ Modules:
 - image minifier
 - livereload
 - server
+- clear
+- copy
+- marge-json
 
 ##Steps:
 - Go to the directory with the project
 - In the console: npm install (and wait)
-- npm start
+- npm start or grunt (for more info see point grunt)
 - open [http://localhost:8080/markup/](http://localhost:8080/markup/)
 - enjoy
 
 Reload works while maintaining and autobuild sass, less files.
 
-##CSS architecture
+##Grunt
+- 4 base task
+	- grunt (compile start server, compile less or sass, jade, marge json, crate sprites from for_sprite and start watch)
+	- grunt all (like first task exept server and watch)
+	- grunt clear (clear folder build, markup, delete all.min.css, delete installed npm-modules)
+	- grunt copy (copy files from you progect in compliance your task look gruntfile.js -> task "copy")
+
+##Jade 
+- for use some mixin, first of all you need include it in top (example in main.jade)
+- there are already few global mixins are included(list, pagination)
+
+##less architecture
 - all.* - import all style here (sourcemap require import all styles into one common file).
 - components - folder for style components like, _table, _buttons, _forms, etc.
 - modules - some kind of interface or layouts _header, _footer, _article, etc.
-- vendor - libs, plugins styles.
+- lib - libs, plugins styles.
 
 ##Important:
 - a markup language sass has two dependences, they are  Ruby and of course sass for Ruby itself. It's nesessary to install these dependences before using your platform

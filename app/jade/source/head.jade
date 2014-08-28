@@ -1,8 +1,14 @@
+include ./var.jade
 head
 	title pageTitle
-	link(rel="stylesheet"  href="../css/all.min.css")
+	link(rel="stylesheet"  href="#{css_path}/all.min.css")
+	//- jScrollPane - cross browser styleable scrollbars with jQuery and CSS
+	link(type="text/css" href="#{less_lib_path}/jquery.jscrollpane.css" rel="stylesheet" media="all")
+	<!-- bxSlider CSS file -->
+	link(href="#{less_lib_path}/jquery.bxslider.css" rel="stylesheet")
+
 	//- add JQuery
-	script(src="../js/jquery-1.11.1.min.js")
+	script(src="#{js_path}/jquery-1.11.1.min.js")
 	//- script for fix html5 tags on ie latest 9 version
 	// if lt IE 9
 	script(src="http://html5shim.googlecode.com/svn/trunk/html5.js")

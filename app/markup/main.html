@@ -3,6 +3,8 @@
   <head>
     <title>pageTitle</title>
     <link rel="stylesheet" href="../css/all.min.css"/>
+    <link type="text/css" href="../css/less/lib/jquery.jscrollpane.css" rel="stylesheet" media="all"/><!-- bxSlider CSS file -->
+    <link href="../css/less/lib/jquery.bxslider.css" rel="stylesheet"/>
     <script src="../js/jquery-1.11.1.min.js"></script>
     <!-- if lt IE 9-->
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,29 +14,59 @@
     <div class="wrapper">
       <header>
         <ul class="main-menu">
-          <li class="main-menu__item"><a href="" class="main-menu__item__link">home</a>
+          <li class="main-menu__item"><a href="#" class="main-menu__item__link">home</a>
           </li>
-          <li class="main-menu__item"><a href="" class="main-menu__item__link">services</a>
+          <li class="main-menu__item"><a href="#" class="main-menu__item__link">services</a>
           </li>
-          <li class="main-menu__item"><a href="" class="main-menu__item__link">contacts</a>
+          <li class="main-menu__item"><a href="#" class="main-menu__item__link">contacts</a>
           </li>
           <li class="main-menu__item">
             <ul class="main-menu__sub">
-              <li class="main-menu__sub__item"><a href="" class="main-menu__sub__item__link">about</a>
+              <li class="main-menu__sub__item"><a href="#" class="main-menu__sub__item__link">about</a>
               </li>
               <li class="main-menu__sub__item"><span class="main-menu__sub__item__span">about span</span>
               </li>
             </ul>
           </li>
         </ul>
-        <div class="pagination"><a href="#" class="pagination__item pagination__first">first</a><a href="#" class="pagination__item pagination__prev">prev</a><a href="#" class="pagination__item ">1</a><a href="#" class="pagination__item ">2</a><span class="pagination__item">..</span><a href="#" class="pagination__item ">5</a><a href="#" class="pagination__item ">6</a><a href="#" class="pagination__item pagination__next">next</a><a href="#" class="pagination__item"><span class="pagination__sub__item">last</span><img src="../images/img.png" alt="" class="pagination__sub__img"/></a>
+        <div class="pagination"><a href="#" class="pagination__item pagination__first">first</a><a href="#" class="pagination__item pagination__prev">prev</a><a href="#" class="pagination__item ">1</a><a href="#" class="pagination__item ">2</a><span class="pagination__item">..</span><a href="#" class="pagination__item ">5</a><a href="#" class="pagination__item ">6</a><a href="#" class="pagination__item pagination__next">next</a><a href="#" class="pagination__item"><span class="pagination__sub__item">last</span><img src="http://dummyimage.com/20x20/000000/0011ff.jpg" alt="" class="pagination__sub__img"/></a>
         </div>
       </header>
       <div class="content">
         <p>content</p>
+        <input type="text" autocapitalize="off" autocorrect="off"/>
+        <input type="file" accept="image/*" capture="camera"/>
+        <ul class="bxslider">
+          <li><img src="http://dummyimage.com/1200x400/000/fff"/></li>
+          <li><img src="http://dummyimage.com/1200x400/000/fff"/></li>
+          <li><img src="http://dummyimage.com/1200x400/000/fff"/></li>
+          <li><img src="http://dummyimage.com/1200x400/000/fff"/></li>
+        </ul>
+        <ul style="height:100px;" class="scroll-pane">
+          <li>text0</li>
+          <li>text1</li>
+          <li>text2</li>
+          <li>text3</li>
+          <li>text4</li>
+          <li>text5</li>
+          <li>text6</li>
+          <li>text7</li>
+          <li>text8</li>
+          <li>text9</li>
+        </ul>
       </div>
       <footer>
       </footer>
-    </div>
+    </div><!-- the mousewheel plugin - optional to provide mousewheel support -->
+    <script type="text/javascript" src="../js/jquery.mousewheel.js"></script><!-- the jScrollPane script -->
+    <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script><!-- bxSlider Javascript file -->
+    <script src="../js/jquery.bxslider.min.js"></script>
+    <script>
+      $(function()
+      {
+       $('.scroll-pane').jScrollPane();
+       $('.bxslider').bxSlider();
+      });
+    </script>
   </body>
 </html>

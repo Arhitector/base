@@ -10,7 +10,7 @@
 		"next": "next",
 		"last": {
 			"span": "last",
-			"img": "../images/img.png"
+			"img": "http://dummyimage.com/20x20/000000/0011ff.jpg"
 			
 		}
 	}
