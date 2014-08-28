@@ -1,11 +1,15 @@
 html(lang="en")
 	include ../head.jade
+	block head
 	body
 		.wrapper
 			header
+				include ../source/include/header.jade
 				block header
 			.content
 				block content
 			footer
+				include ../source/include/footer.jade
 				block footer
+		block footer_script
 		include ../footer.jade

@@ -10,7 +10,8 @@
 	background: -o-linear-gradient(top, @startColor 0%, @stopColor 100%);
 	background: -ms-linear-gradient(top, @startColor 0%, @stopColor 100%); 
 	background: linear-gradient(to bottom, @startColor 0%, @stopColor 100%);
-	filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@stopColor));
+	filter: none;
+	/* filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@stopColor)); */
 }
 
 // Horizontal gradient
@@ -22,7 +23,8 @@
 	background: -o-linear-gradient(left, @startColor 0%, @stopColor 100%);
 	background: -ms-linear-gradient(top, @startColor 0%, @stopColor 100%);
 	background: linear-gradient(to right, @startColor 0%, @stopColor 100%);
-	filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",@startColor,@stopColor));
+	filter: none;
+	/* filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",@startColor,@stopColor)); */
 }
 
 // Directional gradient
@@ -31,9 +33,8 @@
 	background-image: -webkit-linear-gradient(@deg, @startColor, @stopColor);
 	background-image: -o-linear-gradient(@deg, @startColor, @stopColor); 
 	background-image: linear-gradient(@deg, @startColor, @stopColor);
-
 	background-color: mix(@startColor, @stopColor, 60%);
-	background-repeat: repeat-x;
+	filter: none;
 }
 
 // Radial gradient
@@ -42,9 +43,9 @@
 	background-image: -webkit-radial-gradient(circle, @innerColor, @outerColor);
 	background-image: -moz-radial-gradient(circle, @innerColor, @outerColor);
 	background-image: -o-radial-gradient(circle, @innerColor, @outerColor);
-
 	background-color: mix(@innerColor, @outerColor, 60%);
 	background-repeat: no-repeat;
+	filter: none;
 }
 
 .grad (@val) {
@@ -55,4 +56,5 @@
 	background-image: -ms-linear-gradient(@val);
 	background-image: -o-linear-gradient(@val);
 	background-image: linear-gradient(@val);
+	filter: none;
 }

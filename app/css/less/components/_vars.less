@@ -4,17 +4,20 @@
 @lucida-grande: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
 @monospace: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
 @verdana: Verdana, Geneva, sans-serif;
+@arial: Arial, Helvetica, sans-serif;
 
 /* PATH TO IMAGE FOLDERS */
-@bg_path: "../images/bg"; /* how to use background-image: url('@{url-bg}/bg1.png'); */
-@img_path: "../images/img";
-@icons_path: "../images/icons";
-@sprites_path: "../images/sprites";
+@base_path: "../images";
+@bg_path: "@{base_path}/bg"; /* how to use background-image: url('@{url-bg}/bg1.png'); */
+@img_path: "@{base_path}/img";
+@icons_path: "@{base_path}/icons";
+@sprites_path: "@{base_path}/sprites";
 
 
 /* BASE STELYS */
-@base-bg: #fff;
-@base-color: #000;
-@base-link-color: #000;
-@base-font-size: 11px;
-@base-font-family: Arial, Helvetica, sans-serif;
+@base-bg: #fff;										//- base color of page
+@base-color: #000;									//- base color of text
+@base-link-color: #000;								//- base color of link
+@base-font-size: 12px;								//- base font
+@base-font-family: @arial;
+@base-width: 1200px;

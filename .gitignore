@@ -2,7 +2,6 @@
 ######################
 .DS_Store
 .DS_Store?
-._*
 .Spotlight-V100
 .sass-cache/*
 .Trashes
@@ -10,5 +9,4 @@ ehthumbs.db
 Thumbs.db
 /node_modules/*
 /source/*
-!/app/images
-!/app/images/*
+/!images/*

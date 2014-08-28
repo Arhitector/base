@@ -2,10 +2,14 @@ extends ./source/extend/maintemp.jade
 include ./source/mixin/components/list.jade
 include ./source/mixin/components/pagination.jade
 
+block head
+
 block header
-	+list(list)(class="main-menu")
+	+list(list_test)(class="main-menu")
 	+pagination(pagination_test)(class="pagination")
 block content
 	p content
 
 block footer
+
+block footer_script
