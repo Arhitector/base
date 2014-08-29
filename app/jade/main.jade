@@ -1,26 +1,27 @@
-extends ./source/extend/maintemp.jade
-include ./source/mixin/components/list.jade
-include ./source/mixin/components/pagination.jade
+extends source/extend/maintemp.jade
+include source/var.jade
+include source/mixin/components/list.jade
+include source/mixin/components/pagination.jade
 
+//- add script/link into head
 block head
 
+//- block header
 block header
+	a(href="#").logo
+		img(src="http://dummyimage.com/120x40/000/fff")
 	+list(list_test)(class="main-menu")
-	+pagination(pagination_test)(class="pagination")
+//- block content
 block content
-	p content
-	input(type="text" autocapitalize="off" autocorrect="off")
-	input(type="file" accept="image/*" capture="camera")
 	ul.bxslider
 		- for (i=0;i<4;i++) {
 			li
 				img(src="http://dummyimage.com/1200x400/000/fff")
 		- }
-	ul.scroll-pane(style="height:100px;")
-		- for (j=0;j<10;j++) {
-			li text#{j}
-		- }
-
+	.title title
+//- block footer
 block footer
+	
 
+//- script in the bottom of page
 block footer_script

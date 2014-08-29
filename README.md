@@ -37,6 +37,17 @@ Reload works while maintaining and autobuild sass, less files.
 - modules - some kind of interface or layouts _header, _footer, _article, etc.
 - lib - libs, plugins styles.
 
+##JS plugin
+- there are included few useful plugins:
+	- bxslider (slider)
+	- scroll-pane (custom scroll)
+- the examples you may see in app/jade/example.jade
+- you may delete them from 
+	- css: from app/jade/source/head.jade
+	- js: rom app/jade/source/footer.jade
+	- css files: app/css/less/lib/jquery.[plugin name].css
+	- css files: app/js/jquery.[plugin name].js
+
 ##Important:
 - a markup language sass has two dependences, they are  Ruby and of course sass for Ruby itself. It's nesessary to install these dependences before using your platform
 - sass sourcemap require (Sass 3.3.0, which can be installed with gem install sass --pre) and uncomment sourcemap in Gruntfile.js
