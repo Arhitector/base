@@ -16,19 +16,20 @@ Modules:
 - In the console: npm install (and wait)
 - npm start or grunt (for more info see point grunt)
 - open [http://localhost:8080/markup/](http://localhost:8080/markup/)
+- base configuration variable you can change in app/css/less/components/var.less && app/jade/source/var.jade
 - enjoy
 
 Reload works while maintaining and autobuild sass, less files.
 
 ##Grunt
 - 4 base task
-	- grunt (compile start server, compile less or sass, jade, marge json, crate sprites from for_sprite and start watch)
+	- grunt or npm start (compile start server, compile less or sass, jade, marge json, crate sprites from "for_sprite" folder and start watch)
 	- grunt all (like first task exept server and watch)
 	- grunt clear (clear folder build, markup, delete all.min.css, delete installed npm-modules)
 	- grunt copy (copy files from you progect in compliance your task look gruntfile.js -> task "copy")
 
 ##Jade 
-- for use some mixin, first of all you need include it in top (example in main.jade)
+- for use some mixin, first of all you need include it in top (example in example.jade)
 - there are already few global mixins are included(list, pagination)
 
 ##less architecture
@@ -43,8 +44,8 @@ Reload works while maintaining and autobuild sass, less files.
 	- scroll-pane (custom scroll)
 - the examples you may see in app/jade/example.jade
 - you may delete them from 
-	- css: from app/jade/source/head.jade
-	- js: rom app/jade/source/footer.jade
+	- css: from app/css/less/all.less (//lib part)
+	- js: from app/jade/source/footer.jade
 	- css files: app/css/less/lib/jquery.[plugin name].css
 	- css files: app/js/jquery.[plugin name].js
 

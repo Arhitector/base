@@ -1,11 +1,7 @@
-include ./var.jade
+include var.jade
 head
-	title pageTitle
+	title #{page_title}
 	link(rel="stylesheet"  href="#{css_path}/all.min.css")
-	//- jScrollPane - cross browser styleable scrollbars with jQuery and CSS
-	link(type="text/css" href="#{less_lib_path}/jquery.jscrollpane.css" rel="stylesheet" media="all")
-	<!-- bxSlider CSS file -->
-	link(href="#{less_lib_path}/jquery.bxslider.css" rel="stylesheet")
 
 	//- add JQuery
 	script(src="#{js_path}/jquery-1.11.1.min.js")
