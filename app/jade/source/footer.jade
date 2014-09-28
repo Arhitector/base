@@ -9,14 +9,23 @@ script(type="text/javascript" src="#{js_path}/jquery.mousewheel.js")
 <!-- the jScrollPane script -->
 script(type="text/javascript" src="#{js_path}/jquery.jscrollpane.min.js")
 
-
 <!-- bxSlider Javascript file -->
 script(src="#{js_path}/jquery.bxslider.min.js")
+
+<!-- custom select script -->
+script(type="text/javascript" src="#{js_path}/chosen.jquery.js")
+
+<!-- table script -->
+script(type="text/javascript" src="#{js_path}/tablesaw.js")
 
 
 script.
 	$(function()
 	{
+		//- initialize custom scroll
 		$('.scroll-pane').jScrollPane();
+		//- initialize slider
 		$('.bxslider').bxSlider();
+		//- initialize custom select
+		$(".custom-select").chosen();
 	});

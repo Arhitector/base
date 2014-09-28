@@ -1,0 +1,116 @@
+extends source/extend/maintemp.jade
+include source/var.jade
+include source/mixin/components/list.jade
+include source/mixin/components/pagination.jade
+
+//- add script/link into head
+block head
+	script(src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.5/less.min.js")
+	link(rel="stylesheet"  href="../css/less/modules/_elements.less")
+
+block content
+	form(action="" method="get")
+		h2 buttons
+		a(href="#").button button link
+		button.button button button
+		input(type="submit" value="button input").button
+		|:standart
+		br
+		a(href="#").button.hover button link
+		button.button.hover button button
+		input(type="submit" value="button input").button.hover
+		|:hover
+		br
+		a(href="#").button.active button link
+		button.button.active button button
+		input(type="submit" value="button input").button.active
+		|:active
+		h2 buttons with gradient
+		a(href="#").button.button_grad button link
+		button.button.button_grad button button
+		input(type="submit" value="button input").button.button_grad
+
+
+
+		h2 Custom select
+		select(name="").custom-select
+			option(value="item1") Slope rating
+			option(value="item2") Slope rating1
+			option(value="item3") Slope rating2
+		h2 Search field
+		.search
+			input(type="text" placeholder="Search").search__input
+			input(type="submit" value="").search__submit
+		.search.search_mod1
+			input(type="text" placeholder="Search").search__input
+			input(type="submit" value="").search__submit
+
+		h2 Star box
+		// start star-box
+		.star-box.star-box_color1
+			.star-box__item
+				.star-box__item__active
+			.star-box__item
+				.star-box__item__active
+			.star-box__item
+				.star-box__item__active(style="width:10px;")
+			.star-box__item
+			.star-box__item
+		.star-box.star-box_color2
+			a(href="#").star-box__item
+				.star-box__item__active
+			a(href="#").star-box__item
+				.star-box__item__active
+			a(href="#").star-box__item
+				.star-box__item__active
+			a(href="#").star-box__item
+				.star-box__item__active(style="width:14px;")
+			a(href="#").star-box__item
+		//end star-box
+		h2 switch
+		// start switch
+		.switch
+			input(type="checkbox")#switcher.switch__input
+			label(for="switcher").switch__label
+			span.switch__inner выкл 
+			span.switch__inner вкл
+		//end switch
+		h2 table
+		table(class="tablesaw tablesaw-swipe" data-mode="swipe" data-minimap="").tablesaw
+			thead
+				tr
+					th(data-priority="3") Rank
+					th(data-priority="persist") Movie Title
+					th(data-priority="2") Year
+					th(data-priority="1")
+						abbr(title="Rotten Tomato Rating") Rating
+					th(data-priority="4") Reviews
+			tbody
+				tr
+					th 1
+					td
+						a(href="http://en.wikipedia.org/wiki/Citizen_Kane" data-rel="external") Citizen Kane
+					td 1941
+					td 100%
+					td 74
+				tr
+					th 2</th>
+					td
+						a(href="http://en.wikipedia.org/wiki/Casablanca_(film)" data-rel="external") Casablanca
+					td 1942
+					td 97%
+					td 64
+				tr
+					th 3
+					td
+						a(href="http://en.wikipedia.org/wiki/The_Godfather" data-rel="external") The Godfather
+					td 1972
+					td 97%
+					td 87
+				tr
+					th 4
+					td
+						a(href="http://en.wikipedia.org/wiki/Gone_with_the_Wind_(film)" data-rel="external" ) the Wind
+					td 1939
+					td 96%
+					td 87

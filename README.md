@@ -24,9 +24,9 @@ Reload works while maintaining and autobuild sass, less files.
 ##Grunt
 - 4 base task
 	- grunt or npm start (compile start server, compile less or sass, jade, marge json, crate sprites from "for_sprite" folder and start watch)
-	- grunt all (like first task exept server and watch)
+	- grunt all (like first task exept start server and watch)
 	- grunt clear (clear folder build, markup, delete all.min.css, delete installed npm-modules)
-	- grunt copy (copy files from you progect in compliance your task look gruntfile.js -> task "copy")
+	- grunt copy (copy files from project in separate folder(all.min.css, image folder, murkup folder, js folder),  look gruntfile.js -> task "copy")
 
 ##Jade 
 - for use some mixin, first of all you need include it in top (example in example.jade)
@@ -42,12 +42,14 @@ Reload works while maintaining and autobuild sass, less files.
 - there are included few useful plugins:
 	- bxslider (slider)
 	- scroll-pane (custom scroll)
+	- chosen (suctom select)
+	- tablesaw (script for responsive table)
 - the examples you may see in app/jade/example.jade
 - you may delete them from 
-	- css: from app/css/less/all.less (//lib part)
+	- css: from app/css/lib/all.less (//lib part)
 	- js: from app/jade/source/footer.jade
-	- css files: app/css/less/lib/jquery.[plugin name].css
-	- css files: app/js/jquery.[plugin name].js
+	- css files: app/css/less/lib/[plugin name].css
+	- js files: app/js/[plugin name].js
 
 ##Important:
 - a markup language sass has two dependences, they are  Ruby and of course sass for Ruby itself. It's nesessary to install these dependences before using your platform
@@ -56,7 +58,7 @@ Reload works while maintaining and autobuild sass, less files.
 - use one common file to import less or sass styles (require for sourcemap) all.less, all.scss
 
 ###SASS
-	1. change var CSSBuilder to 'sass'
+	1. change var CSSBuilder to 'sass' (gruntfile.js)
 	2. install Ruby http://www.rubyinstaller.org/downloads/
 	- Don't forget to note add ruby into PATH
 	3. in consol do 'gem install sass'

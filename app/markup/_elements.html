@@ -1,0 +1,137 @@
+
+<html lang="en">
+  <head>
+    <title>pageTitle</title>
+    <link rel="stylesheet" href="../css/all.min.css"/>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <!-- if lt IE 9-->
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <!--<![endif]-->
+  </head>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.5/less.min.js"></script>
+  <link rel="stylesheet" href="../css/less/modules/_elements.less"/>
+  <body>
+    <div class="wrapper">
+      <header>
+      </header>
+      <div class="content">
+        <form action="" method="get">
+          <h2>buttons</h2><a href="#" class="button">button link</a>
+          <button class="button">button button</button>
+          <input type="submit" value="button input" class="button"/>:standart<br/><a href="#" class="button hover">button link</a>
+          <button class="button hover">button button</button>
+          <input type="submit" value="button input" class="button hover"/>:hover<br/><a href="#" class="button active">button link</a>
+          <button class="button active">button button</button>
+          <input type="submit" value="button input" class="button active"/>:active
+          <h2>buttons with gradient</h2><a href="#" class="button button_grad">button link</a>
+          <button class="button button_grad">button button</button>
+          <input type="submit" value="button input" class="button button_grad"/>
+          <h2>Custom select</h2>
+          <select name="" class="custom-select">
+            <option value="item1">Slope rating</option>
+            <option value="item2">Slope rating1</option>
+            <option value="item3">Slope rating2</option>
+          </select>
+          <h2>Search field</h2>
+          <div class="search">
+            <input type="text" placeholder="Search" class="search__input"/>
+            <input type="submit" value="" class="search__submit"/>
+          </div>
+          <div class="search search_mod1">
+            <input type="text" placeholder="Search" class="search__input"/>
+            <input type="submit" value="" class="search__submit"/>
+          </div>
+          <h2>Star box</h2>
+          <!-- start star-box-->
+          <div class="star-box star-box_color1">
+            <div class="star-box__item">
+              <div class="star-box__item__active"></div>
+            </div>
+            <div class="star-box__item">
+              <div class="star-box__item__active"></div>
+            </div>
+            <div class="star-box__item">
+              <div style="width:10px;" class="star-box__item__active"></div>
+            </div>
+            <div class="star-box__item"></div>
+            <div class="star-box__item"></div>
+          </div>
+          <div class="star-box star-box_color2"><a href="#" class="star-box__item">
+              <div class="star-box__item__active"></div></a><a href="#" class="star-box__item">
+              <div class="star-box__item__active"></div></a><a href="#" class="star-box__item">
+              <div class="star-box__item__active"></div></a><a href="#" class="star-box__item">
+              <div style="width:14px;" class="star-box__item__active"></div></a><a href="#" class="star-box__item"></a></div>
+          <!--end star-box-->
+          <h2>switch</h2>
+          <!-- start switch-->
+          <div class="switch">
+            <input type="checkbox" id="switcher" class="switch__input"/>
+            <label for="switcher" class="switch__label"></label><span class="switch__inner">выкл </span><span class="switch__inner">вкл</span>
+          </div>
+          <!--end switch-->
+          <h2>table</h2>
+          <table data-mode="swipe" data-minimap="" class="tablesaw tablesaw-swipe tablesaw">
+            <thead>
+              <tr>
+                <th data-priority="3">Rank</th>
+                <th data-priority="persist">Movie Title</th>
+                <th data-priority="2">Year</th>
+                <th data-priority="1"><abbr title="Rotten Tomato Rating">Rating</abbr></th>
+                <th data-priority="4">Reviews</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>1</th>
+                <td><a href="http://en.wikipedia.org/wiki/Citizen_Kane" data-rel="external">Citizen Kane</a></td>
+                <td>1941</td>
+                <td>100%</td>
+                <td>74</td>
+              </tr>
+              <tr>
+                <th>2</th></th>
+                <td><a href="http://en.wikipedia.org/wiki/Casablanca_(film)" data-rel="external">Casablanca</a></td>
+                <td>1942</td>
+                <td>97%</td>
+                <td>64</td>
+              </tr>
+              <tr>
+                <th>3</th>
+                <td><a href="http://en.wikipedia.org/wiki/The_Godfather" data-rel="external">The Godfather</a></td>
+                <td>1972</td>
+                <td>97%</td>
+                <td>87</td>
+              </tr>
+              <tr>
+                <th>4</th>
+                <td><a href="http://en.wikipedia.org/wiki/Gone_with_the_Wind_(film)" data-rel="external">the Wind</a></td>
+                <td>1939</td>
+                <td>96%</td>
+                <td>87</td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <div class="copyright">created by</div>
+    </footer><!-- the mousewheel plugin - optional to provide mousewheel support -->
+    <script type="text/javascript" src="../js/jquery.mousewheel.js"></script><!-- the jScrollPane script -->
+    <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script><!-- bxSlider Javascript file -->
+    <script src="../js/jquery.bxslider.min.js"></script><!-- custom select script -->
+    <script type="text/javascript" src="../js/chosen.jquery.js"></script><!-- table script -->
+    <script type="text/javascript" src="../js/tablesaw.js"></script>
+    <script>
+      $(function()
+      {
+       //- initialize custom scroll
+       $('.scroll-pane').jScrollPane();
+       //- initialize slider
+       $('.bxslider').bxSlider();
+       //- initialize custom select
+       $(".custom-select").chosen();
+      });
+    </script>
+  </body>
+</html>

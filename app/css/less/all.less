@@ -3,6 +3,7 @@
 @import 'components/_mixin';
 @import 'components/_mixin_flexbox';
 @import 'components/_mixin_gradients';
+@import 'components/_mixin_animation';
 @import 'components/_mixin_sprite';
 @import 'components/_reset';
 @import 'components/_fonts';
@@ -12,8 +13,18 @@
 @import 'modules/_main';
 @import 'modules/_header';
 @import 'modules/_footer';
+/* @import 'modules/_elements'; */
 
+
+//Sprite
+@import 'modules/_sprite_elements';
 
 //lib
-@import (less) 'lib/jquery.jscrollpane.css';
-@import (less) 'lib/jquery.bxslider.css';
+/* custom scroll */
+@import (less) '../lib/jquery.jscrollpane.css';
+/* bx slider */
+@import (less) '../lib/jquery.bxslider.css';
+/* custom select */
+@import (less) '../lib/chosen.css';
+/* table */
+@import (less) '../lib/tablesaw.css';

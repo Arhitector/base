@@ -3,15 +3,22 @@ html,body{
 }
 .wrapper {
 	min-height:100%;
-	width: @base-width;
+	max-width: @base-width;
 	margin: 0 auto;
 }
 .content {
 	padding-bottom: @footer-height;
+
 }
 footer{
-	width: @base-width;
+	max-width: @base-width;
 	margin: 0 auto;
 	height: @footer-height;
 	margin-top: -@footer-height;
+	
+}
+.inner {
+	max-width: @width-inner;
+	margin: 0 auto;
+	padding: 0;
 }

@@ -52,6 +52,11 @@
           <li>text8</li>
           <li>text9</li>
         </ul>
+        <select name="" class="custom-select">
+          <option value="item1">Slope rating</option>
+          <option value="item2">Slope rating1</option>
+          <option value="item3">Slope rating2</option>
+        </select>
       </div>
     </div>
     <footer>
@@ -59,12 +64,18 @@
     </footer><!-- the mousewheel plugin - optional to provide mousewheel support -->
     <script type="text/javascript" src="../js/jquery.mousewheel.js"></script><!-- the jScrollPane script -->
     <script type="text/javascript" src="../js/jquery.jscrollpane.min.js"></script><!-- bxSlider Javascript file -->
-    <script src="../js/jquery.bxslider.min.js"></script>
+    <script src="../js/jquery.bxslider.min.js"></script><!-- custom select script -->
+    <script type="text/javascript" src="../js/chosen.jquery.js"></script><!-- table script -->
+    <script type="text/javascript" src="../js/tablesaw.js"></script>
     <script>
       $(function()
       {
+       //- initialize custom scroll
        $('.scroll-pane').jScrollPane();
+       //- initialize slider
        $('.bxslider').bxSlider();
+       //- initialize custom select
+       $(".custom-select").chosen();
       });
     </script>
   </body>

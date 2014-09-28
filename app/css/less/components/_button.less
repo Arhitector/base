@@ -1,0 +1,32 @@
+@buttonHeight: 34px;
+@buttonBgColor1: #606975;
+@buttonBgColor1Hover: #616a77;
+@buttonBgColor1Active: #616a77;
+@buttonTextColor1: #f2f2f2;
+
+
+.button {
+	color: @buttonTextColor1;
+	font-size: 1.166em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.75);
+	border: none;
+	display: inline-block;
+	padding: 0 6px;
+	height: @buttonHeight;
+	line-height: @buttonHeight - 2;
+	background-color: @buttonBgColor1;
+	&:hover, &.hover {
+		background-color: @buttonBgColor1Hover;
+	}
+	&:active, &.active {
+		background-color: @buttonBgColor1Active;
+	}
+}
+.rad {
+	&6 {
+		border-radius: 6px;
+	}
+	&18 {
+		border-radius: 18px;
+	}
+}

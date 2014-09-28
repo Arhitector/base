@@ -1,19 +1,28 @@
 module.exports = function(grunt) {
 	var CSSBuilder	= 'less', //less, sass
+		portHtml	= 8080,
+		portLivereload	= 31510,
 		pkg			= grunt.file.readJSON('package.json');
+
 
 	grunt.initConfig({
 		loc : {
 			build				: 'build',
 			root				: 'app',
+			/* html template */
 			markup				: '<%= loc.root %>/markup',
 			jade				: '<%= loc.root %>/jade',
+			/* style */
 			css					: '<%= loc.root %>/css',
 			less				: '<%= loc.css %>/less',
 			sass				: '<%= loc.css %>/sass',
+			/* json */
 			json				: '<%= loc.jade %>/source/json',
+			/* image */
 			images				: '<%= loc.root %>/images',
 			img_sprite			: '<%= loc.images %>/for_sprite',
+			/* js */
+			js				: '<%= loc.root %>/js',
 
 			cssMinName			: 'all.min.css',
 			cssMapName			: '<%= loc.cssMinName %>.map',
@@ -60,7 +69,7 @@ module.exports = function(grunt) {
 		imagemin : {
 			dynamic : {
 				options : {
-					ptimizationLevel	: 7,
+					optimizationLevel	: 7,
 					cache				: false
 				},
 				files: [{
@@ -102,7 +111,7 @@ module.exports = function(grunt) {
 		},
 		watch : {
 			options: {
-				livereload: true
+				livereload: portLivereload
 			},
 			all: {
 				files: ['./Gruntfile.js'],
@@ -129,7 +138,10 @@ module.exports = function(grunt) {
 				files: [
 					'<%= loc.json %>/**/*.json'
 				],
-				tasks: ['merge-json']
+				tasks: ["merge-json", 'jade'],
+				options: {
+					nospawn: false
+				}
 			},
 			sprites: {
 				files: [
@@ -143,8 +155,8 @@ module.exports = function(grunt) {
 		connect : {
 			server : {
 				options: {
-					port		: 8080,
-					livereload	: true,
+					port		: portHtml,
+					livereload	: portLivereload,
 					base		: '<%= loc.root %>'
 				}
 			}
@@ -152,11 +164,33 @@ module.exports = function(grunt) {
 		copy : {
 			main : {
 				files : [
+					/* copy css */
 					{
 						expand	: true,
-						flatten	: true,
-						src		: ['<%= loc.cssMin %>', '<%= loc.cssMapPath %>'],
-						dest	: '<%= loc.build %>'
+						flatten: true,
+						src		: ['<%= loc.cssMin %>'],
+						dest	: '<%= loc.build %>/css/'
+					},
+					/* copy image */
+					{
+						expand	: true,
+						cwd		: '<%= loc.images %>',
+						src		: '**',
+						dest	: '<%= loc.imagesMin %>'
+					},
+					/* copy js */
+					{
+						expand	: true,
+						cwd		: '<%= loc.js %>',
+						src		: '**',
+						dest	: '<%= loc.build %>/js'
+					},
+					/* copy html */
+					{
+						expand	: true,
+						cwd		: '<%= loc.markup %>',
+						src		: '**',
+						dest	: '<%= loc.build %>/html'
 					}
 				]
 			}
@@ -171,6 +205,13 @@ module.exports = function(grunt) {
 					'build',
 					'<%= loc.root %>/markup',
 					'npm-debug.log'
+				]
+			},
+			startClear : {
+				src : [
+					'<%= loc.build %>',
+					'<%= loc.cssMin %>',
+					'<%= loc.markup %>'
 				]
 			}
 		},
@@ -205,9 +246,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-merge-json');			//include json
 	grunt.loadNpmTasks('grunt-jade-inheritance');
 
-	grunt.registerTask('default', ['connect', 'merge-json', 'sprites', CSSBuilder, 'jade', 'watch']);
-	grunt.registerTask('all', ['merge-json', 'sprites', CSSBuilder, 'jade', 'imagemin']);
+	grunt.registerTask('default', ['clean:startClear', 'connect', 'merge-json', 'sprites', CSSBuilder, 'jade', 'watch']); // base
+	grunt.registerTask('all', ['merge-json', 'sprites', CSSBuilder, 'jade']); // build progect without start server and wath
+	grunt.registerTask('build', ['clean:startClear', 'merge-json', 'sprites', CSSBuilder, 'jade', 'copy']); //send project files to build folder
+	grunt.registerTask('clear', ['clean:clear']); // clear progect files
 
-	grunt.registerTask('copy', [CSSBuilder, 'jade', 'imagemin', 'copy']);
-	grunt.registerTask('clear', ['clean:clear']);
 };
