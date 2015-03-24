@@ -1,0 +1,12 @@
+include var.jade
+head
+	title #{page_title}
+	meta(charset="utf-8")
+	meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+	link(rel="stylesheet" href="#{css_path}/all.min.css")
+	//- add JQuery 
+	script(src="#{js_path}/jquery-1.11.1.min.js")
+	//- script for fix html5 tags on ie latest 9 version
+	// if lt IE 9
+	script(src="http://html5shim.googlecode.com/svn/trunk/html5.js")
+	//<![endif]

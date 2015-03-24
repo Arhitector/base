@@ -1,0 +1,51 @@
+.animation (@val) {
+	-webkit-animation: @val;
+	-moz-animation: @val;
+	-o-animation: @val;
+	animation: @val;
+}
+.keyframes (@name, @fromRules, @toRules) {
+	@-webkit-keyframes ~'@{name}' {
+		0% {
+			@fromRules(); 
+		}
+		100% {
+			@toRules();
+		} 
+	}
+	@-moz-keyframes ~'@{name}' {
+		0% {
+			@fromRules(); 
+		}
+		100% {
+			@toRules();
+		} 
+	}
+	@-o-keyframes ~'@{name}' {
+		0% {
+			@fromRules(); 
+		}
+		100% {
+			@toRules();
+		} 
+	}
+	@keyframes ~'@{name}' {
+		0% {
+			@fromRules();
+		}
+		100% {
+			@toRules();
+		}
+	}
+}
+
+/* Use it like so: */
+/* 
+.keyframes(something, {
+    width: 100px;
+    height: 100px;
+},
+{
+    width: 500px;
+    height: 500px;
+}); */

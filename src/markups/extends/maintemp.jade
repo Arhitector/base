@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+html(lang="en")
+	include ../includes/head.jade
+	block head
+	body
+		.wrapper
+			header.header
+				include ../modules/header/header.jade
+				block header
+			main.content
+				block content
+		footer.footer
+			include ../modules/footer/footer.jade
+			block footer
+		block footer_script
+		include ../includes/footer.jade

@@ -1,0 +1,65 @@
+// http://frontender.info/a-guide-to-flexbox/
+/* parent */
+
+/*make flax box*/
+.flexbox() {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+// flex-direction & flex-wrap
+// flex-direction: row | row-reverse | column | column-reverse
+// flex-wrap: nowrap | wrap | wrap-reverse
+.flex-flow (@values) {
+	-webkit-flex-flow: @values;
+	-moz-flex-flow: @values;
+	-ms-flex-wrap: @values;
+	flex-flow: @values;
+}
+//  aligmnt on main axis
+// justify-content: flex-start | flex-end | center | space-between | space-around
+.justify (@val:"space-between"){
+	-webkit-justify-content: @val;
+	-moz-justify-content: @val;
+	-ms-justify-content: @val;
+	justify-content: @val;
+}
+//  aligmnt on secondary axis
+// align-items: flex-start | flex-end | center | baseline | stretch
+.align-items (@val:"center"){
+	-webkit-align-items: @val;
+	-moz-align-items: @val;
+	-ms-align-items: @val;
+	align-items: @val;
+}
+
+
+/* CHILD */
+
+//  has 3 parametrs  ???? ,space, width
+.flex(@values) {
+	-webkit-box-flex: @values;
+	-moz-box-flex:  @values;
+	-webkit-flex:  @values;
+	-ms-flex:  @values;
+	flex:  @values;
+}
+// aligment item 
+// align-self: auto | flex-start | flex-end | center | baseline | stretch
+.align-self (@val:"center"){
+	-webkit-align-self: @val;
+	-moz-align-self: @val;
+	-ms-align-self: @val;
+	align-self: @val;
+}
+
+.order(@val) {
+	-webkit-box-ordinal-group: @val;
+	-moz-box-ordinal-group: @val;
+	-ms-flex-order: @val;
+	-webkit-order: @val;
+	order: @val;
+}

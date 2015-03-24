@@ -1,0 +1,10 @@
+{
+	"footer": {
+		"footermenu": {
+			"item1": "home",
+			"item2": "about",
+			"item3": "team",
+			"item4": "contact"
+		}
+	}
+}

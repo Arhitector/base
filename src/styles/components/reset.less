@@ -1,0 +1,61 @@
+@arial: Arial, Helvetica, sans-serif;
+@base-bg: #fff;										//- base color of page
+@base-color: #000;									//- base color of text
+@base-link-color: #000;								//- base color of link
+@base-font-size: 12px;								//- base font
+@base-font-family: @arial;							//- base font family
+@base-width: 1200px;								//- base width site
+@width-inner: 1170px;								//- base width inner part of site
+@footer-height: 100px;								//- height footer
+body {
+	margin: 0;
+	color: @base-color;
+	background: @base-bg;
+	font: @base-font-size @base-font-family;
+}
+img {
+	border-style: none;
+	max-width: 100%;
+}
+a {
+	text-decoration: none;
+	color: @base-link-color;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+a {
+	display: flex;
+}
+ul, ol {
+	margin: 0 12px;
+	padding: 0 0 0 40px;
+	list-style-type: disc;
+}
+li {
+	padding: 0;
+	margin: 0;
+}
+input, textarea, select {
+	font: @base-font-size;
+	vertical-align: middle;
+	color: #000;
+	&:focus {
+		outline: none;
+	}
+}
+form, fieldset {
+	margin: 0;
+	padding: 0;
+	border-style: none;
+}
+table {
+	 width :100%;
+	table-layout: auto;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*HTML 5*/
+header, nav, section, article, aside, footer {
+	display:block;
+}
