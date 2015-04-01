@@ -1,9 +1,9 @@
-// cloudinary, marge json
-// newer need help
+// cloudinary
 //imagemin problem with folder modules/
 // spritesmith need optimization
 var
 	// load variables file
+	CSSBuilder				= "less"
 	cfg						= require('./config.js'),
 	// load plugins
 	gulp					= require('gulp'),
@@ -15,25 +15,30 @@ var
 	lessImport				= require('gulp-less-import'),
 	csso 					= require('gulp-csso'),
 	autoprefixer 			= require('gulp-autoprefixer'),
+	replace					= require('gulp-replace-task'),
 	// js
-	uglify					= require('gulp-uglify'), //Minify files with UglifyJS.
-	jshint					= require('gulp-jshint'), //JSHint plugin for gulp
-	concat					= require('gulp-concat'), //Concatenates files
+	uglify					= require('gulp-uglify'),			//Minify files with UglifyJS.
+	jshint					= require('gulp-jshint'),			//JSHint plugin for gulp
+	concat					= require('gulp-concat'),			//Concatenates files
 	//browserify				= require('browserify'),
 	// jade
 	jade					= require('gulp-jade'),
 	jadeInheritance			= require('gulp-jade-inheritance'),
-	extend					= require('gulp-extend'), // combine json
 	// image
 	imagemin				= require('gulp-imagemin'),
+	spritesmith				= require("gulp-spritesmith"),
 	pngquant				= require('imagemin-pngquant'),
-	flatten					= require('gulp-flatten'), // remove or replace relative path for files
+	foreach					= require('gulp-foreach'),
+	gulpif					= require('gulp-if'),
+	flatten					= require('gulp-flatten'),			// remove or replace relative path for files
 	// other
-	sourcemaps				= require('gulp-sourcemaps'), // js/css sourcemap
-	notify					= require("gulp-notify"), // notification plugin
-	cache					= require('gulp-cache'), // caching proxy task
-	print					= require('gulp-print'), // print files in pipe
-	clean					= require('gulp-clean'); // Removes files and folders.
+	path					= require('path'),
+	sourcemaps				= require('gulp-sourcemaps'),		// js/css sourcemap
+	notify					= require("gulp-notify"),			// notification plugin
+	through					= require('gulp-through'),			// stream transform factory
+	cache					= require('gulp-cache'),			// caching proxy task
+	print					= require('gulp-print'),			// print files in pipe
+	clean					= require('gulp-clean');			// Removes files and folders.
 
 gulp.task('less', function () {
 	return gulp.src([
@@ -41,37 +46,44 @@ gulp.task('less', function () {
 			cfg.src.markups + '/modules/**/*.less',
 			cfg.src.markups + '/mixins/**/*.less'
 		])
-		.pipe(lessImport('all.min.less'))
+		.pipe(lessImport(cfg.src.allCss))
 		.pipe(sourcemaps.init())
 		.pipe(less({
-			compress			: false
+			modifyVars: {
+				'@bg_path'		: cfg.destPath.img,
+				'@temp_path'	: cfg.destPath.imgTemp,
+				'@sprites_path'	: cfg.destPath.imgSprites
+			}
 		}))
 		.pipe(autoprefixer({
-			browsers: ['last 2 versions'],
+			browsers: [cfg.src.browserSupport],
 			cascade: true
 		}))
 		.pipe(csso())
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(cfg.dest.css))
-		.pipe(notify("File <%= file.relative %> compiled!"));
-		//.pipe(notify({ message: 'Less task complete' }));
-});
-gulp.task('mergeJson', function() {
-	return gulp.src(cfg.src.markups + '/**/**/*.json')
-		.pipe(extend('commonJson.json'))
-		.pipe(gulp.dest(cfg.src.root + '/simple-data'));
+		.pipe(notify("File <%= file.relative %> compiled!"));;
 });
 gulp.task('jade', function() {
 	return gulp.src(cfg.src.markups + '/*.jade')
 		.pipe(jadeInheritance({basedir: cfg.src.markups}))
-		.pipe(print(this))
 		.pipe(jade({
-			pretty: true
+			pretty: true,
+			data: {
+				getData: function (dataPath) {
+					return require('./' + cfg.src.markups + '/' + dataPath);
+				},
+				page_title		: 'Omnigon',
+				css_path		: cfg.destPath.css,
+				js_path			: cfg.destPath.js,
+				img_path		: cfg.destPath.img,
+				temp_path		: cfg.destPath.imgTemp,
+				sprites_path	: cfg.destPath.imgSprites
+			}
 		}))
 		.pipe(gulp.dest(cfg.dest.root))
-		.pipe(notify({ message: 'Jade task complete' }));
+		.pipe(notify('Jade task complete'));
 });
-
 gulp.task('js', function() {
 	return gulp.src([cfg.src.js + '/*.js', cfg.src.markups + '/**/**/*.js'])
 		.pipe(sourcemaps.init())
@@ -82,7 +94,6 @@ gulp.task('js', function() {
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(cfg.dest.js));
 });
-
 gulp.task('imagemin', function () {
 	return gulp.src([
 			cfg.src.img + '/*',//base image folder
@@ -90,7 +101,7 @@ gulp.task('imagemin', function () {
 			cfg.src.markups + '/**/**/img/*'//modules and mixins images
 			])
 		.pipe(
-			cache(//
+			cache(
 				imagemin({
 					progressive: true,
 					interlaced: true,
@@ -105,36 +116,42 @@ gulp.task('imagemin', function () {
 });
 
 gulp.task('sprite', function() {
-	var spriteData = 
-		gulp.src(cfg.src.sprites + '**/*.*')
+	return gulp.src([
+		cfg.src.sprites + '/*/',//base sprites folder
+		cfg.src.markups + '/**/img/sprite/'//module's sprites folder
+	])
+	.pipe(foreach(function(stream, file) {
+		var truePath = file.path.lastIndexOf('src')
+		truePath = file.path.substring(truePath)
+		return gulp.src(truePath)
+
 			.pipe(spritesmith({
-				imgName: cfg.dest.root + 's-' + folderName + '.png',
-				cssName: cfg.src.styles + 's' + folderName + '.less',
+				imgName: cfg.dest.root + 's-' + path.basename(file.history) + '.png',
+				cssName: cfg.src.styles + '/components/' + 's-' + path.basename(file.history) + '.less',
 				cssFormat: 'less',
 				algorithm: 'binary-tree',
-				cssTemplate: cfg.src.styles + 'helpers/less.template.mustache'
-			}));
-
-	spriteData.img.pipe(gulp.dest(cfg.dest.img));
-	spriteData.css.pipe(gulp.dest(cfg.src.styles + '/components'));
+				cssTemplate: cfg.src.styles + '/helpers/less.template.mustache'
+			}))
+			.pipe(gulpif('*.png', gulp.dest(cfg.dest.img)))
+	}));
 });
 
 gulp.task('connect', function() {
 	browserSync({
 		notify		: false,
 		directory	: true,
+		open		: false,
+		port		: cfg.dest.cPort,
 		server: {
 			baseDir: cfg.dest.root
-			},
-		port: 8050
+		}
 	});
 });
 
 gulp.task('watch', ['connect'], function() {
 	// Watch .less files
 	gulp.watch(cfg.src.styles + '/**/*.less', ['less', browserSync.reload]);
-	// Watch .json files
-	gulp.watch(cfg.src.markups + '/**/*.json', ['mergeJson', browserSync.reload]);
+	gulp.watch(cfg.src.markups + '/**/**/*.less', ['less', browserSync.reload]);
 	// Watch .jade files
 	gulp.watch(cfg.src.markups + '/**/*.jade', ['jade', browserSync.reload]);
 	// Watch image files
@@ -149,13 +166,12 @@ gulp.task('cleanDest', function () {
 		.pipe(clean());
 });
 gulp.task('copy', function() {
-	gulp.src(['src/*'])
-	.pipe(gulp.dest('./dest'))
-	gulp.src(['src/**/*'])
-	.pipe(gulp.dest('./dest'))
+	gulp.src(cfg.src.fonts)
+	.pipe(gulp.dest(cfg.dest.fonts))
 });
 
-gulp.task('default', ['jade']);
-gulp.task('devcompil', function() {
-	 gulp.start('jade', 'less', 'js', 'imagemin');
+gulp.task('default', ['less', 'jade', 'js', 'imagemin', 'watch']);
+gulp.task('prod', function() {
+	cfg = require('./prod-config.js')
+	gulp.start('jade', CSSBuilder, 'js', 'imagemin');
 });

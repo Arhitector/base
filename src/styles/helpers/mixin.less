@@ -78,32 +78,7 @@
 }
 
 
-// Background clip
-.background-clip(@argument: padding-box) {
-	-webkit-background-clip: @argument;
-	   -moz-background-clip: @argument;
-			background-clip: @argument;
-}
-
-// .box-sizing(VALUE); (border-box, padding-box, content-box)
-.box-sizing(@sizing: border-box) {
-  -webkit-box-sizing: @sizing;
-     -moz-box-sizing: @sizing;
-      -ms-box-sizing: @sizing;
-          box-sizing: @sizing;
-}
-
-// User select
-.user-select(@select: none) {
-  -webkit-user-select: @select;
-     -moz-user-select: @select;
-      -ms-user-select: @select;
-       -o-user-select: @select;
-          user-select: @select;
-}
-
 // Background size 
-
 .bg-size (@size: cover) { 
 	-webkit-background-size: @size;
 	   -moz-background-size: @size;
@@ -122,7 +97,6 @@
 // scale(x,y) 
 // rotate(angle)
 // skew(x-angle,y-angle)
-
 .transform (@val) {
 	-webkit-transform: @val;
 	   -moz-transform: @val;
@@ -140,35 +114,4 @@
 	&:-ms-input-placeholder {
 		color: @color; // IE 10+
 	}
-}
-//-----------------------
-//-----------------------
-/* OLD SPECIFICATION */
-//-----------------------
-//-----------------------
-
-// Opacity
-.opacity(@opacity: 0.5) {
-	-webkit-opacity: @opacity;
-	 -khtml-opacity: @opacity;
-	   -moz-opacity: @opacity;
-			opacity: @opacity;
-	@opperc: @opacity * 100;
-	-ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opperc})";
-	    filter: ~"alpha(opacity=@{opperc})";
-}
-// border-radius(VALUE);
-.border-radius (@radius: 5px) {
-	webkit-border-radius: @radius;
-	  -moz-border-radius: @radius;
-		   border-radius: @radius;
-	-webkit-background-clip: padding-box;
-	   -moz-background-clip: padding;
-			background-clip: padding-box;
-}
-// .box-shadow(HORIZONTAL VERTICAL BLUR COLOR)
-.box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
-	-webkit-box-shadow : @shadow;
-	   -moz-box-shadow : @shadow;
-			box-shadow : @shadow; 
 }

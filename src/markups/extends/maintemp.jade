@@ -1,3 +1,5 @@
+include ../modules/footer/footer.jade
+include ../modules/header/header.jade
 <!DOCTYPE html>
 html(lang="en")
 	include ../includes/head.jade
@@ -5,12 +7,12 @@ html(lang="en")
 	body
 		.wrapper
 			header.header
-				include ../modules/header/header.jade
+				+header(getData('modules/header/header.json'))
 				block header
 			main.content
 				block content
 		footer.footer
-			include ../modules/footer/footer.jade
+			+footer(getData('modules/footer/footer2.json'))
 			block footer
 		block footer_script
 		include ../includes/footer.jade

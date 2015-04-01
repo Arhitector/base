@@ -7,11 +7,9 @@
 @arial: Arial, Helvetica, sans-serif;
 
 /* PATH TO IMAGE FOLDERS */
-@base_path: "../images";
-@bg_path: "@{base_path}/bg"; /* how to use background-image: url('@{url-bg}/bg1.png'); */
-@img_path: "@{base_path}/img";
-@icons_path: "@{base_path}/icons";
-@sprites_path: "@{base_path}/sprites";
+@img_path: "images"; /* how to use background-image: url('@{bg-path}/bg1.png'); */
+@temp_path: "@{img_path}/temp";
+@sprites_path: "@{img_path}/sprites";
 
 
 /* BASE STELYS */
@@ -26,8 +24,8 @@
 
 /* break points */
 @bigMaxWidth: 1170px;								//- max desctop
-@bigMinWidth: 769px;								//- min desctop
-@middleMaxWidth: 768px;								//- max tablet
-@middleMinWidth: 768px;								//- min tablet
+@bigMinWidth: 768px;								//- min desctop
+@middleMaxWidth: 767px;								//- max tablet
+@middleMinWidth: 481px;								//- min tablet
 @smallMaxWidth: 480px;								//- max mobile
-@smallMinWidth: 480px;								//- min mobile
+@smallMinWidth: 320px;								//- min mobile
