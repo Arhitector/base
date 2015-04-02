@@ -23,22 +23,26 @@
     "gulp-csso": "^1.0.0",
     "imagemin-pngquant": "^4.0.0",
     "gulp-imagemin": "^2.2.1",
-    "gulp-foreach": "^0.1.0",
-    "gulp-if": "^1.2.5",
     "gulp-spritesmith": "0.0.2",
-    "gulp-flatten": "0.0.4",
-    "gulp-concat": "^2.5.2",
     "gulp-jshint": "^1.9.4",
     "gulp-uglify": "^1.1.0",
+    "gulp-flatten": "0.0.4",
+    "gulp-concat": "^2.5.2",
+    "gulp-clean": "^0.3.1",
+    "gulp-copy": "0.0.2",
+    "gulp-foreach": "^0.1.0",
+    "gulp-if": "^1.2.5",
     "gulp-sourcemaps": "^1.5.1",
     "gulp-notify": "^2.2.0",
     "gulp-cache": "^0.2.8",
-    "gulp-clean": "^0.3.1",
-    "gulp-copy": "0.0.2",
     "gulp-print": "^1.1.0",
+    "gulp-changed": "^1.2.1",
+    "gulp-size": "^1.2.1",
+    "gulp-plumber": "^1.0.0",
     "gulp-through": "^0.3.0"
   },
   "devDependencies": {
-    "gulp-replace-task": "^0.1.0"
+    "gulp-replace-task": "^0.1.0",
+    "gulp.spritesmith": "^3.5.3"
   }
 }

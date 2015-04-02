@@ -1,11 +1,3 @@
-works:
-- server [connect]
-- watch [watch] (start server, watch, less, jade, imagemin)
-- imagemin [imagemin]
-- clear destination folder [clearDest]
-- clear cache [clearCache]
-- js [js]
-
 need to do:
 - some additional js tasks
 - sprite for each folder
@@ -48,7 +40,8 @@ need to do:
 2. Create source map near compiled js
 
 ##Imagemin
-1. minify all images from base folder, temp folder and img folder from modules to destination img folder (destenation folder configurate in config.js)
+1. minify all images from base folder, temp folder and img folder from modules to one destination img folder (destenation folder configurate in config.js)
+2. It caching files that have been minify.
 
 ##Copy
 - copyed files from src font folder to destenation font folder
