@@ -41,8 +41,5 @@
     "gulp-changed": "^1.2.1",
     "gulp-size": "^1.2.1",
     "gulp-plumber": "^1.0.0"
-  },
-  "devDependencies": {
-    "gulp-replace-task": "^0.1.0"
   }
 }

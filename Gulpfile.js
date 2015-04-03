@@ -180,38 +180,34 @@ gulp.task('spriteTask', function() {
 		cfg.src.markups + '/modules/**/img/*',
 		cfg.src.markups + '/mixins/**/img/*'
 	])
-	.pipe(
-			foreach(function(stream, file) {
-			var foldername = '',
-				truePath = file.path.lastIndexOf('src'),
-				truePath = file.path.substring(truePath) + "/*.png",
-				moduleSpritePathParts = file.path.match(/modules\/([^\/]+)\/img\/sprite/);
-				mixinsSpritePathParts = file.path.match(/mixins\/([^\/]+)\/img\/sprite/);
-				if (file.path.search('/images/sprites/') != -1) {
-					foldername = path.basename(file.history)
-				} else if (moduleSpritePathParts) {
-					foldername = moduleSpritePathParts[1];
-				} else if (mixinsSpritePathParts) {
-					foldername = mixinsSpritePathParts[1];
-				}
-				console.log(truePath)
-			return gulp.src(truePath)
-				.pipe(
-					spritesmith({
-						//retinaSrcFilter: ['*-2x.png'],
-						imgName: 's-' + foldername + '.png',
-						//retinaImgName: 's-' + foldername + '-2x.png',
-						cssName: 's-' + foldername + '.' + CSSBuilder,
-						cssFormat: CSSBuilder,
-						algorithm: 'binary-tree',
-						padding: 10,
-						cssTemplate: cfg.src.styles + '/helpers/' + CSSBuilder + '.template.mustache'
-					})
-				)
-				.pipe(gulpif('*.png', gulp.dest(cfg.dest.img)))
-				.pipe(gulpif('*.less', gulp.dest(cfg.src.styles + '/sprites')));
-			})
-	)
+	.pipe(foreach(function(stream, file) {
+		var foldername = '',
+			truePath = file.path.lastIndexOf('src'),
+			truePathRetina = file.path.substring(truePath) + "/*-2x.png",
+			truePath = file.path.substring(truePath) + "/*!(-2x).png",
+			moduleSpritePathParts = file.path.match(/modules\/([^\/]+)\/img\/sprite/);
+			mixinsSpritePathParts = file.path.match(/mixins\/([^\/]+)\/img\/sprite/);
+			if (file.path.search('/images/sprites/') != -1) {
+				foldername = path.basename(file.history)
+			} else if (moduleSpritePathParts) {
+				foldername = moduleSpritePathParts[1];
+			} else if (mixinsSpritePathParts) {
+				foldername = mixinsSpritePathParts[1];
+			}
+		return gulp.src(truePath)
+			.pipe(spritesmith({
+				//retinaSrcFilter: truePathRetina,
+				imgName: 's-' + foldername + '.png',
+				//retinaImgName: 's-' + foldername + '-2x.png',
+				cssName: 's-' + foldername + '.' + CSSBuilder,
+				cssFormat: CSSBuilder,
+				algorithm: 'binary-tree',
+				padding: 10,
+				cssTemplate: cfg.src.styles + '/helpers/' + CSSBuilder + '.template.mustache'
+			}))
+			.pipe(gulpif('*.png', gulp.dest(cfg.dest.img)))
+			.pipe(gulpif('*.less', gulp.dest(cfg.src.styles + '/sprites')));
+	}))
 	.pipe(
 		gulpif(
 			cfg.SystemNotify,
@@ -232,11 +228,9 @@ gulp.task('connect', function() {
 	});
 });
 gulp.task('watch', ['connect'], function() {
-	//autowatch(gulp, paths);
 	// Watch .less files
 	gulp.watch(cfg.src.root + '/**/*.less', ['less', reload]);
 	// Watch .jade files
-	// Watch image files
 	gulp.watch(cfg.src.root + '/**/*.jade', ['jade', reload]);
 	gulp.watch([
 		cfg.src.img + '/*.{jpg,jpeg,png,gif}',
@@ -254,7 +248,7 @@ gulp.task('clearCache', function (done) {
 });
 gulp.task('cleanDest', function () {
 	return gulp.src([cfg.dest.root,cfg.src.styles + '/sprites'], {read: false})
-		.pipe(clean());
+	.pipe(clean());
 });
 gulp.task('copy', function() {
 	gulp.src(cfg.src.fonts)

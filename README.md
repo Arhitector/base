@@ -2,7 +2,6 @@ need to do:
 - some additional js tasks
 - retina options for spritesmith
 - watch optimization
-- gulp-uncss 
 - base64 option doesn't work
 
 
