@@ -59,5 +59,5 @@ need to do:
 ###cleanDest
 - delete destaenation folder (destenation folder configurate in config.js)
 
-###clearCache
+###cleanCache
 - delete cache witch using in imagemin task

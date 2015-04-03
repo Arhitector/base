@@ -243,7 +243,7 @@ gulp.task('watch', ['connect'], function() {
 	// gulp.watch('src/images/*.{jpg,jpeg,png,gif}', ['imagemin']).on("change", browserSync.reload);
 	// gulp.watch('src/images/*.{jpg,jpeg,png,gif}', ['cleanDest']).on("unlink", browserSync.reload);
 });
-gulp.task('clearCache', function (done) {
+gulp.task('cleanCache', function (done) {
 	return cache.clearAll(done);
 });
 gulp.task('cleanDest', function () {
