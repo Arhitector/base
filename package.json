@@ -15,15 +15,17 @@
   "dependencies": {
     "gulp": "^3.8.8",
     "browser-sync": "^2.3.1",
+    "gulp-autowatch": "^1.0.2",
     "gulp-jade": "^0.7.0",
     "gulp-jade-inheritance": "^0.5.0",
     "gulp-less": "^1.2.4",
     "gulp-less-import": "^1.0.0",
-    "gulp-autoprefixer": "^2.1.0",
     "gulp-csso": "^1.0.0",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-base64": "^0.1.2",
     "imagemin-pngquant": "^4.0.0",
     "gulp-imagemin": "^2.2.1",
-    "gulp-spritesmith": "0.0.2",
+    "gulp.spritesmith": "^3.5.3",
     "gulp-jshint": "^1.9.4",
     "gulp-uglify": "^1.1.0",
     "gulp-flatten": "0.0.4",
@@ -38,11 +40,9 @@
     "gulp-print": "^1.1.0",
     "gulp-changed": "^1.2.1",
     "gulp-size": "^1.2.1",
-    "gulp-plumber": "^1.0.0",
-    "gulp-through": "^0.3.0"
+    "gulp-plumber": "^1.0.0"
   },
   "devDependencies": {
-    "gulp-replace-task": "^0.1.0",
-    "gulp.spritesmith": "^3.5.3"
+    "gulp-replace-task": "^0.1.0"
   }
 }

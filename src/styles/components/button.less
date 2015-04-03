@@ -1,13 +1,12 @@
 @buttonTextColor1: #f2f2f2;
 
 .button {
-	background-image: '@{img_path}';
+	background-image: '@{img_path}/bg-basefolder.png';
 	color: @buttonTextColor1;
 	font-size: 1.166em;
 	&:hover, &.hover {
-		background-image: '@{temp_path}';
 	}
 	&:active, &.active {
-		background-image: '@{sprites_path}';
+
 	}
 }

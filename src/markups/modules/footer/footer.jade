@@ -1,3 +1,2 @@
-mixin footer(data)
-	.copyright #{data.description}
-	asdf
+- var data = getData('/modules/footer/footer.json')
+.copyright #{data.footer.footermenu.item1}
