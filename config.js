@@ -7,7 +7,7 @@ module.exports = new function () {
 	// source path and variables
 	this.src				= {};
 	this.src.root			= './src';
-	this.src.styles			= this.src.root + '/styles';
+	this.src.styles			= this.src.root + '/styles/' + this.CSSBuilder;
 	this.src.base64Size		= 8*1024 //size img to base64 DOESN'T work
 	this.src.browserSupport	= 'last 2 versions';
 	this.src.allCss			= 'all.min.css';
@@ -20,13 +20,15 @@ module.exports = new function () {
 	// developer destanation path
 	this.dest				= {};
 	this.dest.root			= './www';
+	this.dest.html			= this.dest.root + '/';
 	this.dest.css			= this.dest.root + '/css';
 	this.dest.js			= this.dest.root + '/js';
 	this.dest.jsFile		= 'all.min.js',
 	this.dest.img			= this.dest.root + '/img';
-	// Less variables
+	// style variables
 	this.destLess			= {};
 	this.destLess.img		= '"../img"';
+	this.destLess.modules	= this.destLess.img;
 	this.destLess.imgTemp	= this.destLess.img;
 	this.destLess.imgSprites= this.destLess.img;
 	// Jade variables

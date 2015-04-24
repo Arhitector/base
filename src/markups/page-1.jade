@@ -1,5 +1,5 @@
 extends extends/maintemp.jade
-
+include mixins/menu-list/menu-list.jade
 
 //- add script/link into head
 block head
@@ -8,9 +8,8 @@ block head
 block header
 //- block content
 block content
-	.title title some фыв
+	.title title some
+	- var data = getData('mixins/menu-list/menu-list.json')
+	+menu-list(data.menu1, "main-menu")
 //- block footer
 block footer
-
-//- script in the bottom of page
-block footer_script

@@ -1,6 +1,3 @@
-// cloudinary
-//imagemin problem with folder modules/
-// spritesmith need optimization
 var
 	// load variables file
 	cfg						= require('./config.js'),
@@ -17,6 +14,9 @@ var
 	csso 					= require('gulp-csso'),
 	autoprefixer 			= require('gulp-autoprefixer'),
 	base64					= require('gulp-base64'),
+	sass					= require('gulp-ruby-sass'),
+	sass2					= require('gulp-sass'),
+	compass					= require('gulp-compass'),
 	// js
 	uglify					= require('gulp-uglify'),			//Minify files with UglifyJS.
 	jshint					= require('gulp-jshint'),			//JSHint plugin for gulp
@@ -52,26 +52,26 @@ gulp.task('less', function () {
 		.pipe(lessImport(cfg.src.allCss))
 		.pipe(sourcemaps.init())
 		.pipe(plumber({
-				errorHandler: function (err) {
-					console.log(err.message);
-					this.emit('end');
-				}
+			errorHandler: function (err) {
+				console.log(err.message);
+				this.emit('end');
+			}
 		}))
 		.pipe(less({
 			modifyVars: {
 				'@img_path'		: cfg.destLess.img,
 				'@temp_path'	: cfg.destLess.imgTemp,
-				'@sprites_path'	: cfg.destLess.imgSprites
+				'@sprites_path'	: cfg.destLess.imgSprites,
+				'@module_path'	: cfg.destLess.imgModules
 			}
 		})).on('error', notify.onError(function (error) {
 			return "Error on: " + error.filename + " in " + error.line + ' line';
 		}))
-		
 		.pipe(autoprefixer({
 			browsers: [cfg.src.browserSupport],
 			cascade: true
 		}))
-		.pipe(csso())
+		//.pipe(csso())
 		.pipe(gulpif(
 			cfg.base64Enable,
 			base64({
@@ -88,6 +88,18 @@ gulp.task('less', function () {
 			cfg.SystemNotify,
 			notify("File <%= file.relative %> compiled!")
 		));
+});
+gulp.task('sass', function () {
+	return sass(cfg.src.styles + "/all.scss")
+		.pipe(print())
+		//.pipe(sass())
+		//.pipe(sass({ compass: true, sourcemap: true, style: 'compressed' }))
+		/*.pipe(compass({
+			//project: path.join(__dirname, '/'),
+			css: cfg.dest.css,
+			sass: cfg.src.styles
+		}))*/
+		.pipe(gulp.dest(cfg.dest.css));
 });
 gulp.task('jade', function() {
 	return gulp.src(cfg.src.markups + '/*.jade')
@@ -114,7 +126,7 @@ gulp.task('jade', function() {
 		})).on('error', notify.onError(function (error) {
 			return "Error: " + error.message ;
 		}))
-		.pipe(gulp.dest(cfg.dest.root))
+		.pipe(gulp.dest(cfg.dest.html))
 		.pipe(gulpif(
 			cfg.SystemNotify,
 			notify('JADE task complete')
@@ -184,9 +196,10 @@ gulp.task('spriteTask', function() {
 		var foldername = '',
 			truePath = file.path.lastIndexOf('src'),
 			truePathRetina = file.path.substring(truePath) + "/*-2x.png",
-			truePath = file.path.substring(truePath) + "/*!(-2x).png",
+			truePath = file.path.substring(truePath) + "/*!(-2x).png";
 			moduleSpritePathParts = file.path.match(/modules\/([^\/]+)\/img\/sprite/);
 			mixinsSpritePathParts = file.path.match(/mixins\/([^\/]+)\/img\/sprite/);
+			isRetinaImg = file.path.substring(truePath) + "/*-2x.png";
 			if (file.path.search('/images/sprites/') != -1) {
 				foldername = path.basename(file.history)
 			} else if (moduleSpritePathParts) {
@@ -194,6 +207,7 @@ gulp.task('spriteTask', function() {
 			} else if (mixinsSpritePathParts) {
 				foldername = mixinsSpritePathParts[1];
 			}
+			console.log(isRetinaImg)
 		return gulp.src(truePath)
 			.pipe(spritesmith({
 				//retinaSrcFilter: truePathRetina,
@@ -206,7 +220,7 @@ gulp.task('spriteTask', function() {
 				cssTemplate: cfg.src.styles + '/helpers/' + CSSBuilder + '.template.mustache'
 			}))
 			.pipe(gulpif('*.png', gulp.dest(cfg.dest.img)))
-			.pipe(gulpif('*.less', gulp.dest(cfg.src.styles + '/sprites')));
+			.pipe(gulpif('*.' + CSSBuilder, gulp.dest(cfg.src.styles + '/sprites')));
 	}))
 	.pipe(
 		gulpif(
@@ -228,16 +242,18 @@ gulp.task('connect', function() {
 	});
 });
 gulp.task('watch', ['connect'], function() {
-	// Watch .less files
-	gulp.watch(cfg.src.root + '/**/*.less', ['less', reload]);
+	// Watch styles files
+	gulp.watch(cfg.src.root + '/**/*.' + CSSBuilder, [CSSBuilder, reload]);
 	// Watch .jade files
 	gulp.watch(cfg.src.root + '/**/*.jade', ['jade', reload]);
+	// Watch .json files
+	gulp.watch(cfg.src.root + '/**/*.json', ['jade', reload]);
+	//Watch image files
 	gulp.watch([
 		cfg.src.img + '/*.{jpg,jpeg,png,gif}',
 		cfg.src.tempImg + '/*.{jpg,jpeg,png,gif}',
 		cfg.src.markups + '/**/*.{jpg,jpeg,png,gif}'
 	], ['imagemin', reload]);
-	// Watch .jade files
 	// Watch image files
 	// gulp.watch('src/images/*.{jpg,jpeg,png,gif}', ['imagemin']).on("add", browserSync.reload);
 	// gulp.watch('src/images/*.{jpg,jpeg,png,gif}', ['imagemin']).on("change", browserSync.reload);
@@ -250,9 +266,20 @@ gulp.task('cleanDest', function () {
 	return gulp.src([cfg.dest.root,cfg.src.styles + '/sprites'], {read: false})
 	.pipe(clean());
 });
+gulp.task('cleanAll', function () {
+	return gulp.src(['node_modules',cfg.dest.root,cfg.src.styles + '/sprites'], {read: false})
+	.pipe(clean());
+});
 gulp.task('copy', function() {
 	gulp.src(cfg.src.fonts)
 	.pipe(gulp.dest(cfg.dest.fonts))
+});
+gulp.task('hook', function () {
+	gulp.src('.pre-commit')
+	.pipe(gulp.dest('.git/hooks/'));
+});
+gulp.task('pre-commit', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
+	
 });
 
 gulp.task('default', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {

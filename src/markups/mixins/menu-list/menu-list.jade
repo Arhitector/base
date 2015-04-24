@@ -1,0 +1,20 @@
+mixin menu-list (data, menu_name)
+	+menu-list_conteiner(data, menu_name)
+
+mixin menu-list_conteiner (data, menu_name)
+	each item, key in data
+		if typeof item === 'object'
+			if key.indexOf('item') != -1
+				+menu-list_conteiner(item, menu_name)
+			else
+				#{key}(class="#{menu_name}_l#{menu_level}")
+					each val, index in data
+						+menu-list_conteiner(item, menu_name)
+		else
+			#{key} #{item}
+
+mixin menu-list_parse-object (data, menu_name)
+	each item, key in data
+		#{key}(class="#{menu_name}_l#{menu_level}")
+			each val, index in data
+				+menu-list_conteiner(item, menu_name)

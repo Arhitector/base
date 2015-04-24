@@ -1,0 +1,31 @@
+/* valiable for FONTS */
+$georgia: Georgia, Cambria, "Times New Roman", Times, serif;
+$helvetica: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+$lucida-grande: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+$monospace: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
+$verdana: Verdana, Geneva, sans-serif;
+$arial: Arial, Helvetica, sans-serif;
+
+/* PATH TO IMAGE FOLDERS */
+$img_path: "images"; /* how to use background-image: url('@{bg-path}/bg1.png'); */
+$temp_path: "@{img_path}/temp";
+$sprites_path: "@{img_path}/sprites";
+
+
+/* BASE STELYS */
+$base-bg: #fff;										//- base color of page
+$base-color: #000;									//- base color of text
+$base-link-color: #000;								//- base color of link
+$base-font-size: 12px;								//- base font
+$base-font-family: $arial;							//- base font family
+$base-width: 1200px;								//- base width site
+$width-inner: 1170px;								//- base width inner part of site
+$footer-height: 100px;								//- height footer
+
+/* break points */
+$bigMaxWidth: 1170px;								//- max desctop
+$bigMinWidth: 768px;								//- min desctop
+$middleMaxWidth: 767px;								//- max tablet
+$middleMinWidth: 481px;								//- min tablet
+$smallMaxWidth: 480px;								//- max mobile
+$smallMinWidth: 320px;								//- min mobile

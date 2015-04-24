@@ -1,1 +1,0 @@
-document.getElementById("demo").innerHTML = '1 mixin';

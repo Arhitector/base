@@ -1,0 +1,82 @@
+//- Hide block
+.hide() {
+	display: none;
+}
+//- reset margin & padding
+.mpn (){
+	margin: 0;
+	padding: 0;
+}
+//- reset ul
+.ul(@mar: 0, @pad: 0){
+	list-style: none;
+	margin: @mar * 1px;
+	padding: @pad * 1px;
+}
+//- Size
+.size(@width, @height) {
+	width: @width * 1px;
+	height: @height * 1px;
+}
+//- Square
+.sq(@size) {
+	width: @size * 1px;
+	height: @size * 1px;
+}
+//- responsive % width
+.width(@varWidth) {
+	width: percentage(@varWidth/@base-font-size);
+}
+.height(@varHeight) {
+	height: percentage(@varHeight/@base-font-size);
+}
+.va (@width, @height) {
+	.size(@width * 1px, @height * 1px);
+	.va {
+		.size(@width * 1px, @height * 1px);
+	}
+}
+.center (@position: relative) {
+	position: @position;
+	left: 50%; top: 50%;
+	transform: translate(-50%, -50%);
+}
+.over (@width: auto){
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: @width;
+}
+.pseudo (@width, @height, @content: '') {
+	position: absolute;
+	content: @content;
+	width: @width * 1px;
+	height: @height * 1px;
+}
+//- gradient
+.grad (@startcolor, @endcolor, @direction: top) {
+	background-color: mix(@startcolor, @endcolor, 50%);
+	background: linear-gradient(@direction, @startcolor, @endcolor);
+}
+
+//- FONT-Face
+.font-face (@font, @fontName: @font){
+	@font-face{ 
+		font-family: '@{fontName}'; 
+		src: 	url('@{font_path}/@{font}.eot');
+		src: 	url('@{font_path}/@{font}.eot?#iefix') format('embedded-opentype'),
+				url('@{font_path}/@{font}.woff') format('woff'),
+				url('@{font_path}/@{font}.ttf') format('truetype'),
+				url('@{font_path}/@{font}.svg#webfont') format('svg');
+	}
+}
+.placeholder(@color) {
+	&::-webkit-input-placeholder {
+		color: @color; // Chrome, Safari, Opera
+	}
+	&::-moz-placeholder {
+		color: @color; // Firefox 19+
+	}
+	&:-ms-input-placeholder {
+		color: @color; // IE 10+
+	}
+}
