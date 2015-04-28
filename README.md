@@ -5,6 +5,12 @@ need to do:
 - base64 option doesn't work
 - sass doesn't work
 
+#IMPORTANT
+for using project have to install globaly:
+- node.js
+- npm package manager
+- bower
+- if you want use SASS need install ruby
 
 #General
 - Begin to work - "npm install" (install nesesary packeges) then "gulp" or "npm start" to start project

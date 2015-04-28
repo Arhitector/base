@@ -35,6 +35,9 @@ var
 	foreach					= require('gulp-foreach'),
 	// claening
 	clean					= require('gulp-clean');			// Removes files and folders.
+	//bower 
+	bower					= require('bower'),
+	mainBowerFiles			= require('main-bower-files'),
 	// other
 	size					= require('gulp-size'),
 	path					= require('path'),
@@ -46,8 +49,9 @@ var
 
 gulp.task('less', function () {
 	return gulp.src([
+			cfg.src.lib + '/lib.less',
 			cfg.src.styles + '/**/*.less',
-			cfg.src.markups + '/**/*.less',
+			cfg.src.markups + '/**/*.less'
 		])
 		.pipe(lessImport(cfg.src.allCss))
 		.pipe(sourcemaps.init())
@@ -229,7 +233,15 @@ gulp.task('spriteTask', function() {
 		)
 	);
 });
-
+gulp.task('bow',['bower'], function(){
+	return gulp.src(mainBowerFiles())
+	.pipe(gulp.dest('src/library'))
+});
+gulp.task('bower', function(){
+	bower.commands.install([], {save: true}, {}).on('end', function(installed){
+		//cb();
+	});
+});
 gulp.task('connect', function() {
 	browserSync({
 		notify		: false,
