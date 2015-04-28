@@ -17,6 +17,7 @@ module.exports = new function () {
 	this.src.tempImg		= this.src.img + '/temp';
 	this.src.markups		= this.src.root + '/markups';
 	this.src.fonts			= this.src.root + '/fonts';
+	this.src.lib			= this.src.root + '/library';
 	// developer destanation path
 	this.dest				= {};
 	this.dest.root			= './www';

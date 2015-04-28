@@ -233,13 +233,20 @@ gulp.task('spriteTask', function() {
 		)
 	);
 });
-gulp.task('bow',['bower'], function(){
-	return gulp.src(mainBowerFiles())
-	.pipe(gulp.dest('src/library'))
-});
 gulp.task('bower', function(){
+	var mainBower = require('./bower.json'),
+		dependencies = mainBower.dependencies;
+	for(library in dependencies) {
+		var libBowerPath = './bower_components/' + library,
+		libBower = require(libBowerPath + '/bower.json');
+		libBower.main;
+		gulp.src(libBowerPath + '/' + libBower.main)
+		.pipe(gulp.dest(cfg.src.lib + '/' + library));
+	}
+});
+gulp.task('bower2', function(){
 	bower.commands.install([], {save: true}, {}).on('end', function(installed){
-		//cb();
+		gulp.start('bow');
 	});
 });
 gulp.task('connect', function() {
@@ -291,7 +298,6 @@ gulp.task('hook', function () {
 	.pipe(gulp.dest('.git/hooks/'));
 });
 gulp.task('pre-commit', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
-	
 });
 
 gulp.task('default', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {

@@ -3,5 +3,5 @@
 # jade path to img without variables
 # jade fail compilation files
 # js problem with compilation
-PATH="/usr/local/bin:$PATH"
-gulp pre-commit
+
+/usr/local/bin/gulp pre-commit

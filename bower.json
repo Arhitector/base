@@ -1,21 +1,12 @@
 {
-	"name": "my-project",
-	"version": "1.0.0",
-	"main": "src/library/jquery.js",
-	"ignore": [
-		".jshintrc",
-		"**/*.txt"
-	],
-	"directory": "src/library",
-	"dependencies": {
-		"jquery": "~1.7.2"
-	},
-	"overrides": {
-		"jquery": {
-			"main": {
-				"development": "file.js",
-				"production": "file.min.js"
-			}
-		}
-	}
+  "name": "my-project",
+  "version": "1.0.0",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "jquery": "~1.7.2",
+    "canjs": "~2.2.5"
+  }
 }
