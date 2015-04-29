@@ -207,11 +207,12 @@ gulp.task('spriteTask', function() {
 			foledrSpritePathParts = file.path.match(/images\/sprites/);
 			moduleSpritePathParts = file.path.match(/modules\/([^\/]+)\/img\/sprite/);
 			mixinsSpritePathParts = file.path.match(/mixins\/([^\/]+)\/img\/sprite/);
-			if (foledrSpritePathParts) {
+
+			if (foledrSpritePathParts !== null) {
 				foldername = path.basename(file.history)
-			} else if (moduleSpritePathParts) {
+			} else if (moduleSpritePathParts !== null) {
 				foldername = moduleSpritePathParts[1];
-			} else if (mixinsSpritePathParts) {
+			} else if (mixinsSpritePathParts !== null) {
 				foldername = mixinsSpritePathParts[1];
 			};
 			console.log(foldername);
