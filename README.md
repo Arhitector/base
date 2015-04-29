@@ -1,9 +1,12 @@
 need to do:
-- some additional js tasks
+- some additional js tasks (cofescript)
 - retina options for spritesmith
 - watch optimization
 - base64 option doesn't work
 - sass doesn't work
+- bower task problem with sort
+- Qunit test
+- yomen
 
 #IMPORTANT
 for using project have to install globaly:

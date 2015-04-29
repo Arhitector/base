@@ -7,6 +7,8 @@
   ],
   "dependencies": {
     "jquery": "~1.7.2",
-    "canjs": "~2.2.5"
+    "canjs": "~2.2.5",
+    "nivoslider": "*",
+    "bxslider": "*"
   }
 }

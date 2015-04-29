@@ -1,5 +1,6 @@
 var
 	// load variables file
+	check					= false,
 	cfg						= require('./config.js'),
 	CSSBuilder				= cfg.CSSBuilder
 	// load plugins
@@ -34,7 +35,7 @@ var
 	pngquant				= require('imagemin-pngquant'),
 	foreach					= require('gulp-foreach'),
 	// claening
-	clean					= require('gulp-clean');			// Removes files and folders.
+	clean					= require('gulp-clean'),			// Removes files and folders.
 	//bower 
 	bower					= require('bower'),
 	mainBowerFiles			= require('main-bower-files'),
@@ -43,7 +44,7 @@ var
 	path					= require('path'),
 	sourcemaps				= require('gulp-sourcemaps'),		// js/css sourcemap
 	notify					= require("gulp-notify"),			// notification plugin
-	plumber					= require('gulp-plumber');			// Prevent pipe breaking caused by errors
+	plumber					= require('gulp-plumber'),			// Prevent pipe breaking caused by errors
 	print					= require('gulp-print'),			// print files in pipe
 	gulpif					= require('gulp-if');				// 
 
@@ -55,12 +56,15 @@ gulp.task('less', function () {
 		])
 		.pipe(lessImport(cfg.src.allCss))
 		.pipe(sourcemaps.init())
-		.pipe(plumber({
-			errorHandler: function (err) {
-				console.log(err.message);
-				this.emit('end');
-			}
-		}))
+		.pipe(gulpif(
+			check,
+			plumber({
+				errorHandler: function (err) {
+					console.log(err.message);
+					this.emit('end');
+				}
+			}))
+		)
 		.pipe(less({
 			modifyVars: {
 				'@img_path'		: cfg.destLess.img,
@@ -199,8 +203,8 @@ gulp.task('spriteTask', function() {
 	.pipe(foreach(function(stream, file) {
 		var foldername = '',
 			truePath = file.path.lastIndexOf('src'),
-			truePathRetina = file.path.substring(truePath) + "/*-2x.png",
-			truePath = file.path.substring(truePath) + "/*!(-2x).png";
+			truePathRetina = file.path.substring(truePath) + "/*.png",
+			foledrSpritePathParts = file.path.match(/images\/sprites/);
 			moduleSpritePathParts = file.path.match(/modules\/([^\/]+)\/img\/sprite/);
 			mixinsSpritePathParts = file.path.match(/mixins\/([^\/]+)\/img\/sprite/);
 			isRetinaImg = file.path.substring(truePath) + "/*-2x.png";
@@ -211,13 +215,10 @@ gulp.task('spriteTask', function() {
 			} else if (mixinsSpritePathParts) {
 				foldername = mixinsSpritePathParts[1];
 			}
-			console.log(isRetinaImg)
 		return gulp.src(truePath)
 			.pipe(spritesmith({
-				//retinaSrcFilter: truePathRetina,
-				imgName: 's-' + foldername + '.png',
-				//retinaImgName: 's-' + foldername + '-2x.png',
-				cssName: 's-' + foldername + '.' + CSSBuilder,
+				imgName: 'sprite-' + foldername + '.png',
+				cssName: 'sprite-' + foldername + '.' + CSSBuilder,
 				cssFormat: CSSBuilder,
 				algorithm: 'binary-tree',
 				padding: 10,
@@ -246,8 +247,15 @@ gulp.task('bower', function(){
 });
 gulp.task('bower2', function(){
 	bower.commands.install([], {save: true}, {}).on('end', function(installed){
-		gulp.start('bow');
+		gulp.start('bower');
 	});
+});
+gulp.task('bower3', function() {
+	var bower = require('main-bower-files');
+	var bowerNormalizer = require('gulp-bower-normalize');
+	return gulp.src(bower(), {base: './bower_components'})
+		.pipe(bowerNormalizer({bowerJson: './bower.json'}))
+		.pipe(gulp.dest(cfg.src.lib + '/'))
 });
 gulp.task('connect', function() {
 	browserSync({
@@ -294,10 +302,12 @@ gulp.task('copy', function() {
 	.pipe(gulp.dest(cfg.dest.fonts))
 });
 gulp.task('hook', function () {
-	gulp.src('.pre-commit')
+	gulp.src('pre-commit')
 	.pipe(gulp.dest('.git/hooks/'));
 });
 gulp.task('pre-commit', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
+	check = true;
+	gulp.start(CSSBuilder);
 });
 
 gulp.task('default', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
