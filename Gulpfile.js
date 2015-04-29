@@ -203,18 +203,18 @@ gulp.task('spriteTask', function() {
 	.pipe(foreach(function(stream, file) {
 		var foldername = '',
 			truePath = file.path.lastIndexOf('src'),
-			truePathRetina = file.path.substring(truePath) + "/*.png",
+			truePath = file.path.substring(truePath) + "/*.png",
 			foledrSpritePathParts = file.path.match(/images\/sprites/);
 			moduleSpritePathParts = file.path.match(/modules\/([^\/]+)\/img\/sprite/);
 			mixinsSpritePathParts = file.path.match(/mixins\/([^\/]+)\/img\/sprite/);
-			isRetinaImg = file.path.substring(truePath) + "/*-2x.png";
-			if (file.path.search('/images/sprites/') != -1) {
+			if (foledrSpritePathParts) {
 				foldername = path.basename(file.history)
 			} else if (moduleSpritePathParts) {
 				foldername = moduleSpritePathParts[1];
 			} else if (mixinsSpritePathParts) {
 				foldername = mixinsSpritePathParts[1];
-			}
+			};
+			console.log(foldername);
 		return gulp.src(truePath)
 			.pipe(spritesmith({
 				imgName: 'sprite-' + foldername + '.png',
