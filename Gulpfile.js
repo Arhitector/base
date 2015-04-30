@@ -35,9 +35,6 @@ var
 	foreach					= require('gulp-foreach'),
 	// claening
 	clean					= require('gulp-clean'),			// Removes files and folders.
-	//bower 
-	bower					= require('bower'),
-	mainBowerFiles			= require('main-bower-files'),
 	// other
 	size					= require('gulp-size'),
 	path					= require('path'),
@@ -58,15 +55,12 @@ gulp.task('lessTask', function () {
 		])
 		.pipe(lessImport(cfg.src.allCss))
 		.pipe(sourcemaps.init())
-		.pipe(gulpif(
-			check,
-			plumber({
-				errorHandler: function (err) {
-					console.log(err.message);
-					this.emit('end');
-				}
-			}))
-		)
+		.pipe(plumber({
+			errorHandler: function (err) {
+				console.log(err.message);
+				this.emit('end');
+			}
+		}))
 		.pipe(less({
 			modifyVars: {
 				'@img_path'		: cfg.destLess.img,
@@ -276,7 +270,6 @@ gulp.task('cleanAll', function () {
 		'node_modules',
 		cfg.dest.root,
 		cfg.src.styles + '/sprites',
-		cfg.src.lib,
 		], {read: false})
 	.pipe(clean());
 	gulp.start('cleanCache');
