@@ -21,8 +21,8 @@ for using project have to install globaly:
 - base or "default" task runs watch task witch consist:
 	- connect - start server: localhost:8050 (port configurate in config.js)
 	- watch - spy to your files and reload when they change
-	- [LESS]
-	- [JADE]
+	- [LESS] - css builder by default
+	- [JADE] - html compiller by default
 	- [JS]
 
 ##LESS
@@ -42,7 +42,7 @@ for using project have to install globaly:
 	- mixins - small part of code which can be used in many places (title etc.)
 	- modules - folder with modules which are described in BRD 
 3. Compiling jade files to html (destenation folder configurate in config.js)
-4. To use Json data from file in module assign into module jade used variable a function getData(__PATH_TO_JSON__). Eample: - var data = getData('/modules/footer/footer.json')
+4. To use Json data from file in module assign into module jade used variable a function getData(__PATH_TO_JSON__). Example: - var data = getData('/modules/footer/footer.json')
 5. variables for jade configurate in config .js "this.destPath"
 
 ##JS
