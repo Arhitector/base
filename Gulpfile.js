@@ -3,6 +3,9 @@ var
 	cfg						= require('./config.js'),
 	cssBuilder				= cfg.cssBuilder,
 	htmlCompiller			= cfg.htmlCompiller,
+	// server
+	browserSync				= require('browser-sync'),
+	reload					= browserSync.reload,
 	// load plugins
 	gulp					= require('gulp'),
 	// claening
@@ -67,6 +70,7 @@ gulp.task('pre-commit', [cssBuilder, htmlCompiller, 'js', 'imagemin'], function(
 gulp.task('default', [cssBuilder, htmlCompiller, 'js', 'imagemin'], function() {
 	gulp.start('watch');
 });
+gulp.task('build', [cssBuilder, htmlCompiller, 'js', 'imagemin'], function() {});
 gulp.task('prod', function() {
 	cfg = require('./prod-config.js')
 	gulp.start(htmlCompiller, cssBuilder, 'js', 'imagemin');
