@@ -10,12 +10,12 @@ var
 	gulp					= require('gulp'),
 	// claening
 	clean					= require('gulp-clean'),
-	glob                    = require('glob'),
-	fs                      = require('fs'),
-	path                    = require('path'),
-	foreach                 = require('gulp-foreach'),
-	handlebars              = require('handlebars'),
-	handlebarsLayouts       = require('handlebars-layouts');
+	glob					= require('glob'),
+	fs						= require('fs'),
+	path					= require('path'),
+	foreach					= require('gulp-foreach'),
+	handlebars				= require('handlebars'),
+	handlebarsLayouts		= require('handlebars-layouts');
 
 gulp.task('less', ['sprite'], function () {
 	gulp.start('lessTask');
