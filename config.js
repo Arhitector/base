@@ -3,7 +3,7 @@ module.exports = new function () {
 	this.cssBuilder				= 'less'; //chouse compiller : less, sass
 	this.HTMLcompiller			= 'jade'; //chouse html compiller : jade, handlebars
 	this.cPort					= 8050; // port server http://localhost:8050
-	this.base64Enable			= true; // Is it need to use base64 convert image in css
+	this.base64Enable			= false; // Is it need to use base64 convert image in css
 	this.SystemNotify			= true; // is it need to notify about successful compilation
 	// source path and variables
 	this.src					= {};
@@ -13,14 +13,13 @@ module.exports = new function () {
 	this.src.browserSupport		= 'last 2 versions'; // version browser for atoprefixer
 	this.src.allCss				= 'all.min.css'; // name minify css file in destenation folder
 	this.src.js					= this.src.root + '/scripts'; // path to the script folder
+	this.src.markups			= this.src.root + '/markups'; // path to markups
+	this.src.fonts				= this.src.root + '/fonts'; // path to fonts
+	this.src.lib				= this.src.root + '/library'; // path to librry
 	this.src.img				= this.src.root + '/images'; // path to common folder images 
 	this.src.sprites			= this.src.img + '/sprites'; // path folder with sprites
 	this.src.tempImg			= this.src.img + '/temp'; // path temp images folder
-	this.src.modulesImgSprite	= this.src.modules + '/sprites';
-	this.src.markups			= this.src.root + '/markups';
-	this.src.modules			= this.src.markups + '/modules';
-	this.src.fonts				= this.src.root + '/fonts';
-	this.src.lib				= this.src.root + '/library';
+	
 	// developer destanation path
 	this.dest					= {};
 	this.dest.root				= './www';

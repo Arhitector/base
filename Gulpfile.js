@@ -1,8 +1,7 @@
 var
 	// load variables file
-	check					= false,
 	cfg						= require('./config.js'),
-	cssBuilder				= cfg.cssBuilder
+	cssBuilder				= cfg.cssBuilder,
 	// load plugins
 	gulp					= require('gulp'),
 	// servar/watch
@@ -173,7 +172,7 @@ gulp.task('imagemin', function () {
 	return gulp.src([
 			cfg.src.img + '/*',//base image folder
 			cfg.src.tempImg + '/*',//temp image folder
-			cfg.src.modules + '/**/images/*'//images in modules
+			cfg.src.markups + '/**/images/*'//images in markups
 			])
 		.pipe(changed(cfg.dest.img))
 		.pipe(
@@ -200,26 +199,26 @@ gulp.task('imagemin', function () {
 gulp.task('sprite', function() {
 	return gulp.src([
 		cfg.src.sprites + '/*',
-		cfg.src.root + '/**/**/' + cfg.src.modulesImg + '/' + cfg.src.modulesImgSprite + '/*',
+		cfg.src.markups + '/**/**/images/sprites/*',
 	])
 	.pipe(foreach(function(stream, file) {
-		var foldername = '',
+		var folderName = '',
 			truePath = file.path.substring(file.path.lastIndexOf('src')) + "/*.png",
 			foledrSpritePathParts = getPosixPath(file.path).match(/images\/sprites/);
 			moduleSpritePathParts = getPosixPath(file.path).match(/modules\/([^\/]+)\/images\/sprites/);
 			blockSpritePathParts = getPosixPath(file.path).match(/blocks\/([^\/]+)\/images\/sprites/);
 			if (foledrSpritePathParts !== null) {
-				foldername = path.basename(file.history)
+				folderName = path.basename(file.history)
 			} else if (moduleSpritePathParts !== null) {
-				foldername = moduleSpritePathParts[1];
+				folderName = moduleSpritePathParts[1];
 			} else if (blockSpritePathParts !== null) {
-				foldername = blockSpritePathParts[1];
+				folderName = blockSpritePathParts[1];
 			};
 		return gulp.src(truePath)
 			.pipe(spritesmith({
-				imgName: 'sprite-' + foldername + '.png',
-				cssName: 'sprite-' + foldername + '.' + cssBuilder,
-				imgPath: '../' + cfg.destJade.imgSprites + '/sprite-' + foldername + '.png',
+				imgName: 'sprite-' + folderName + '.png',
+				cssName: 'sprite-' + folderName + '.' + cssBuilder,
+				imgPath: '../' + cfg.destJade.imgSprites + '/sprite-' + folderName + '.png',
 				cssFormat: cssBuilder,
 				algorithm: 'binary-tree',
 				padding: 10,
@@ -257,7 +256,7 @@ gulp.task('watch', ['connect'], function() {
 	gulp.watch([
 		cfg.src.img + '/*.{jpg,jpeg,png,gif}',
 		cfg.src.tempImg + '/*.{jpg,jpeg,png,gif}',
-		cfg.src.markups + '/**/' + cfg.src.modulesImg + '/*.{jpg,jpeg,png,gif}'
+		cfg.src.markups + '/**/**/images/sprites/*.{jpg,jpeg,png,gif}'
 	], ['imagemin', reload]);
 	// Watch image files
 	// gulp.watch('src/images/*.{jpg,jpeg,png,gif}', ['imagemin']).on("add", browserSync.reload);
@@ -291,8 +290,7 @@ gulp.task('hook', function () {
 	.pipe(gulp.dest('.git/hooks/'));
 });
 gulp.task('pre-commit', [cssBuilder, 'jade', 'js', 'imagemin'], function() {
-	check = true;
-	gulp.start(cssBuilder);
+	//gulp.start(cssBuilder);
 });
 function getPosixPath(path) {
 	return path.replace(/\\+/g, '/');
