@@ -4,7 +4,6 @@ need to do:
 - watch optimization
 - base64 option doesn't work
 - sass doesn't work
-- bower task problem with sort
 - Qunit test
 - yomen
 
@@ -14,6 +13,8 @@ for using project have to install globaly:
 - npm package manager
 - bower (if you need download packeges from bower)
 - if you want use SASS need install ruby
+- all additional library(jquery, canJs, sliders, etc.) should put into src/library/{LIBRARY_NAME}
+
 
 #General
 - Begin to work - "npm install" (install nesesary packeges) then "gulp" or "npm start" to start project
@@ -23,7 +24,6 @@ for using project have to install globaly:
 	- [LESS]
 	- [JADE]
 	- [JS]
-
 
 ##LESS
 1. Compiling less in one file all.min.less (path and name for this file configurate in config.js)

@@ -2,7 +2,7 @@ var
 	// load variables file
 	check					= false,
 	cfg						= require('./config.js'),
-	CSSBuilder				= cfg.CSSBuilder
+	cssBuilder				= cfg.cssBuilder
 	// load plugins
 	gulp					= require('gulp'),
 	// servar/watch
@@ -219,15 +219,15 @@ gulp.task('sprite', function() {
 		return gulp.src(truePath)
 			.pipe(spritesmith({
 				imgName: 'sprite-' + foldername + '.png',
-				cssName: 'sprite-' + foldername + '.' + CSSBuilder,
+				cssName: 'sprite-' + foldername + '.' + cssBuilder,
 				imgPath: '../' + cfg.destJade.imgSprites + '/sprite-' + foldername + '.png',
-				cssFormat: CSSBuilder,
+				cssFormat: cssBuilder,
 				algorithm: 'binary-tree',
 				padding: 10,
-				cssTemplate: cfg.src.styles + '/helpers/' + CSSBuilder + '.template.mustache'
+				cssTemplate: cfg.src.styles + '/helpers/' + cssBuilder + '.template.mustache'
 			}))
 			.pipe(gulpif('*.png', gulp.dest(cfg.dest.img)))
-			.pipe(gulpif('*.' + CSSBuilder, gulp.dest(cfg.src.styles + '/sprites')));
+			.pipe(gulpif('*.' + cssBuilder, gulp.dest(cfg.src.styles + '/sprites')));
 	}))
 	.pipe(
 		gulpif(
@@ -249,7 +249,7 @@ gulp.task('connect', function() {
 });
 gulp.task('watch', ['connect'], function() {
 	// Watch styles files
-	gulp.watch(cfg.src.root + '/**/*.' + CSSBuilder, [CSSBuilder, reload]);
+	gulp.watch(cfg.src.root + '/**/*.' + cssBuilder, [cssBuilder, reload]);
 	// Watch .jade files
 	gulp.watch(cfg.src.root + '/**/*.jade', ['jade', reload]);
 	// Watch .json files
@@ -291,18 +291,18 @@ gulp.task('hook', function () {
 	gulp.src('pre-commit')
 	.pipe(gulp.dest('.git/hooks/'));
 });
-gulp.task('pre-commit', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
+gulp.task('pre-commit', [cssBuilder, 'jade', 'js', 'imagemin'], function() {
 	check = true;
-	gulp.start(CSSBuilder);
+	gulp.start(cssBuilder);
 });
 function getPosixPath(path) {
 	return path.replace(/\\+/g, '/');
 }
 
-gulp.task('default', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
+gulp.task('default', [cssBuilder, 'jade', 'js', 'imagemin'], function() {
 	gulp.start('watch');
 });
 gulp.task('prod', function() {
 	cfg = require('./prod-config.js')
-	gulp.start('jade', CSSBuilder, 'js', 'imagemin');
+	gulp.start('jade', cssBuilder, 'js', 'imagemin');
 });
