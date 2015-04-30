@@ -250,7 +250,7 @@ gulp.task('hook', function () {
 gulp.task('pre-commit', [cssBuilder, 'jade', 'js', 'imagemin'], function() {
 	//gulp.start(cssBuilder);
 });
-gulp.task('default', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
+gulp.task('default', [cssBuilder, 'jade', 'js', 'imagemin'], function() {
 	gulp.start('watch');
 });
 gulp.task('prod', function() {
