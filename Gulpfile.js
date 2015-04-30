@@ -13,6 +13,7 @@ var
 	glob                    = require('glob'),
 	fs                      = require('fs'),
 	path                    = require('path'),
+	foreach                 = require('gulp-foreach'),
 	handlebars              = require('handlebars'),
 	handlebarsLayouts       = require('handlebars-layouts');
 
@@ -25,45 +26,55 @@ gulp.task('lessTask', function () {
 gulp.task('sass', function () {
 	return require('./gulp/sass-task')(cfg);
 });
-gulp.task('hb', function() {
-	handlebars.registerHelper(handlebarsLayouts(handlebars))
+gulp.task('hbInit', function() {
+	handlebars.registerHelper(handlebarsLayouts(handlebars));
+
 	return gulp.src(cfg.src.markups + '/**/*.partial.stache')
-	.pipe(foreach(function (er, files) {
-		files.forEach(function (file) {
-			try {
-				var partialName = path.basename(file).replace(/\.partial\.stache$/, '').trim();
-
-				handlebars.registerPartial(
-					partialName,
-					fs.readFileSync(file, 'utf8')
-				);
-			}
-			catch (err) {
-				console.log(err);
-			}
-		});
+	.pipe(foreach(function (stream, file) {
+		try {
+			fs.readFile(file.path, {encoding: 'utf8'}, function (err, data) {
+				if (err) {
+					console.log(err);
+				}
+				else {
+					try {
+						var partialName = path.basename(file.path).replace(/\.partial\.stache$/, '').trim();
+						handlebars.registerPartial(
+							partialName,
+							data
+						);
+					}
+					catch (err) {
+						console.log(err);
+					}
+				}
+			});
+		}
+		catch (err) {
+			console.log(err);
+		}
+		return stream;
 	}));
-	/*glob(cfg.src.markups + '/*.stache', function (er, files) {
-		files.forEach(function (file) {
-			try {
-				console.log(file);
-				var template = handlebars.compile(fs.readFileSync(file, 'utf8')),
-				    output = template({
-					    pageTitle   : cfg.destJade.title,
-					    cssPath     : cfg.destJade.css,
-					    jsPath      : cfg.destJade.js,
-					    imgPath     : cfg.destJade.img,
-					    tempPath    : cfg.destJade.imgTemp,
-					    spritesPath : cfg.destJade.imgSprites
-				    });
-
-				fs.writeFile(file.replace(/\.stache$/, '.html'),  output);
-			}
-			catch (err) {
-				console.log(err);
-			}
-		});*/
-	//});
+});
+gulp.task('hb', ['hbInit'], function() {
+	gulp.src(cfg.src.markups + '/*.stache')
+	.pipe(foreach(function (stream, file) {
+		try {
+			var template = handlebars.compile(fs.readFileSync(file.path, 'utf8')),
+			output   = template({
+				pageTitle  : cfg.destJade.title,
+				cssPath    : cfg.destJade.css,
+				jsPath     : cfg.destJade.js,
+				imgPath    : cfg.destJade.img,
+				tempPath   : cfg.destJade.imgTemp,
+				spritesPath: cfg.destJade.imgSprites
+			});
+			fs.writeFile(file.path.replace(/\.stache$/, '.html'), output);
+		}
+		catch (err) {
+			console.log(err);
+		}
+	}));
 });
 gulp.task('jade', function() {
 	return require('./gulp/jade-task')(cfg);
