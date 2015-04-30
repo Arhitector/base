@@ -11,10 +11,10 @@ module.exports = new function () {
 		])
 		.pipe(foreach(function (stream, file) {
 			var folderName            = '',
-			    truePath              = file.path.substring(file.path.lastIndexOf('src')) + '/*.png',
-			    folderSpritePathParts = normalizePath(file.path).match(/images\/sprites/),
-			    moduleSpritePathParts = normalizePath(file.path).match(/modules\/([^\/]+)\/images\/sprites/),
-			    mixinsSpritePathParts = normalizePath(file.path).match(/blocks\/([^\/]+)\/images\/sprites/);
+				truePath              = file.path.substring(file.path.lastIndexOf('src')) + '/*.png',
+				folderSpritePathParts = normalizePath(file.path).match(/images\/sprites/),
+				moduleSpritePathParts = normalizePath(file.path).match(/modules\/([^\/]+)\/images\/sprites/),
+				mixinsSpritePathParts = normalizePath(file.path).match(/blocks\/([^\/]+)\/images\/sprites/);
 
 			if (folderSpritePathParts !== null) {
 				folderName = path.basename(file.history)
