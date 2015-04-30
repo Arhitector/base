@@ -1,9 +1,15 @@
 module.exports = new function () {
-	var gulp					= require('gulp'),
-		less					= require('gulp-less'),
-		lessImport				= require('gulp-less-import'),
-		csso 					= require('gulp-csso'),
-		autoprefixer			= require('gulp-autoprefixer'),
+	var gulp			= require('gulp'),
+		less			= require('gulp-less'),
+		lessImport		= require('gulp-less-import'),
+		csso 			= require('gulp-csso'),
+		autoprefixer	= require('gulp-autoprefixer');
+		base64			= require('gulp-base64'),
+		size			= require('gulp-size'),
+		gulpif			= require('gulp-if'),
+		sourcemaps		= require('gulp-sourcemaps'),		// js/css sourcemap
+		notify			= require("gulp-notify"),			// notification plugin
+		plumber			= require('gulp-plumber');			// Prevent pipe breaking caused by errors
 
 	return function (cfg) {
 		return gulp.src([
@@ -33,7 +39,7 @@ module.exports = new function () {
 			browsers: [cfg.src.browserSupport],
 			cascade: true
 		}))
-		//.pipe(csso())
+		.pipe(csso())
 		.pipe(gulpif(
 			cfg.base64Enable,
 			base64({
