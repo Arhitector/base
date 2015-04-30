@@ -26,9 +26,9 @@ gulp.task('sass', function () {
 	return require('./gulp/sass-task')(cfg);
 });
 gulp.task('hb', function() {
-	handlebars.registerHelper(handlebarsLayouts(handlebars));
-
-	glob(cfg.src.markups + '/**/*.partial.stache', function (er, files) {
+	handlebars.registerHelper(handlebarsLayouts(handlebars))
+	return gulp.src(cfg.src.markups + '/**/*.partial.stache')
+	.pipe(foreach(function (er, files) {
 		files.forEach(function (file) {
 			try {
 				var partialName = path.basename(file).replace(/\.partial\.stache$/, '').trim();
@@ -42,8 +42,8 @@ gulp.task('hb', function() {
 				console.log(err);
 			}
 		});
-	});
-	glob(cfg.src.markups + '/*.stache', function (er, files) {
+	}));
+	/*glob(cfg.src.markups + '/*.stache', function (er, files) {
 		files.forEach(function (file) {
 			try {
 				console.log(file);
@@ -62,8 +62,8 @@ gulp.task('hb', function() {
 			catch (err) {
 				console.log(err);
 			}
-		});
-	});
+		});*/
+	//});
 });
 gulp.task('jade', function() {
 	return require('./gulp/jade-task')(cfg);
