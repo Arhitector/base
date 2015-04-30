@@ -5,14 +5,6 @@ var
 	htmlCompiller			= cfg.htmlCompiller,
 	// load plugins
 	gulp					= require('gulp'),
-	// servar/watch
-	autowatch				= require('gulp-autowatch');
-	browserSync				= require('browser-sync'),
-	reload					= browserSync.reload,
-	// css
-	sass					= require('gulp-ruby-sass'),
-	sass2					= require('gulp-sass'),
-	compass					= require('gulp-compass'),
 	// claening
 	clean					= require('gulp-clean');
 
