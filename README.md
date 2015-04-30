@@ -12,7 +12,7 @@ need to do:
 for using project have to install globaly:
 - node.js
 - npm package manager
-- bower
+- bower (if you need download packeges from bower)
 - if you want use SASS need install ruby
 
 #General

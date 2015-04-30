@@ -48,7 +48,10 @@ var
 	print					= require('gulp-print'),			// print files in pipe
 	gulpif					= require('gulp-if');				// 
 
-gulp.task('less', function () {
+gulp.task('less', ['sprite'], function () {
+	gulp.start('lessTask');
+});
+gulp.task('lessTask', function () {
 	return gulp.src([
 			cfg.src.lib + '/lib.less',
 			cfg.src.styles + '/**/*.less',
@@ -70,7 +73,7 @@ gulp.task('less', function () {
 				'@img_path'		: cfg.destLess.img,
 				'@temp_path'	: cfg.destLess.imgTemp,
 				'@sprites_path'	: cfg.destLess.imgSprites,
-				'@module_path'	: cfg.destLess.imgModules
+				'@modules_path'	: cfg.destLess.imgModules
 			}
 		})).on('error', notify.onError(function (error) {
 			return "Error on: " + error.filename + " in " + error.line + ' line';
@@ -141,7 +144,11 @@ gulp.task('jade', function() {
 		));
 });
 gulp.task('js', function() {
-	return gulp.src([cfg.src.js + '/*.js', cfg.src.markups + '/**/**/*.js'])
+	return gulp.src([
+			cfg.src.lib + '/**/*.js',
+			cfg.src.js + '/*.js',
+			cfg.src.markups + '/**/**/*.js'
+		])
 		.pipe(sourcemaps.init())
 		.pipe(
 			plumber({
@@ -165,9 +172,8 @@ gulp.task('js', function() {
 gulp.task('imagemin', function () {
 	return gulp.src([
 			cfg.src.img + '/*',//base image folder
-			cfg.src.img + '/temp/*',//temp image folder
-			cfg.src.markups + '/mixins/img/*',//mixins images
-			cfg.src.markups + '/modules/img/*'//modules images
+			cfg.src.tempImg + '/*',//temp image folder
+			cfg.src.modules + '/**/' + cfg.src.modulesImg + '/*'//images in modules
 			])
 		.pipe(changed(cfg.dest.img))
 		.pipe(
@@ -191,23 +197,20 @@ gulp.task('imagemin', function () {
 			)
 		);
 });
-gulp.task('sprite', ['spriteTask'], function(){
-	gulp.start(CSSBuilder);
-});
-gulp.task('spriteTask', function() {
+gulp.task('sprite', function() {
 	return gulp.src([
 		cfg.src.sprites + '/*',
-		cfg.src.markups + '/modules/**/img/*',
-		cfg.src.markups + '/mixins/**/img/*'
+		cfg.src.modules + '/**/' + cfg.src.modulesImg + '/' + cfg.src.modulesImgSprite + '/*',
 	])
 	.pipe(foreach(function(stream, file) {
 		var foldername = '',
 			truePath = file.path.lastIndexOf('src'),
 			truePath = file.path.substring(truePath) + "/*.png",
-			foledrSpritePathParts = file.path.match(/images\/sprites/);
-			moduleSpritePathParts = file.path.match(/modules\/([^\/]+)\/img\/sprite/);
-			mixinsSpritePathParts = file.path.match(/mixins\/([^\/]+)\/img\/sprite/);
-
+			foledrSpritePathParts = getPosixPath(file.path).match(/images\/sprites/);
+			moduleSpritePathParts = getPosixPath(file.path).match(/modules\/([^\/]+)\/img\/sprite/);
+			mixinsSpritePathParts = getPosixPath(file.path).match(/blocks\/([^\/]+)\/img\/sprite/);
+			moduleSpritePathParts = getPosixPath(file.path).match(/modules\/([^\/]+)\/images\/sprite/);
+			mixinsSpritePathParts = getPosixPath(file.path).match(/blocks\/([^\/]+)\/images\/sprite/);
 			if (foledrSpritePathParts !== null) {
 				foldername = path.basename(file.history)
 			} else if (moduleSpritePathParts !== null) {
@@ -215,11 +218,11 @@ gulp.task('spriteTask', function() {
 			} else if (mixinsSpritePathParts !== null) {
 				foldername = mixinsSpritePathParts[1];
 			};
-			console.log(foldername);
 		return gulp.src(truePath)
 			.pipe(spritesmith({
 				imgName: 'sprite-' + foldername + '.png',
 				cssName: 'sprite-' + foldername + '.' + CSSBuilder,
+				imgPath: '../' + cfg.destJade.imgSprites + '/sprite-' + foldername + '.png',
 				cssFormat: CSSBuilder,
 				algorithm: 'binary-tree',
 				padding: 10,
@@ -234,29 +237,6 @@ gulp.task('spriteTask', function() {
 			notify("Sprite <%= file.relative %> created!")
 		)
 	);
-});
-gulp.task('bower', function(){
-	var mainBower = require('./bower.json'),
-		dependencies = mainBower.dependencies;
-	for(library in dependencies) {
-		var libBowerPath = './bower_components/' + library,
-		libBower = require(libBowerPath + '/bower.json');
-		libBower.main;
-		gulp.src(libBowerPath + '/' + libBower.main)
-		.pipe(gulp.dest(cfg.src.lib + '/' + library));
-	}
-});
-gulp.task('bower2', function(){
-	bower.commands.install([], {save: true}, {}).on('end', function(installed){
-		gulp.start('bower');
-	});
-});
-gulp.task('bower3', function() {
-	var bower = require('main-bower-files');
-	var bowerNormalizer = require('gulp-bower-normalize');
-	return gulp.src(bower(), {base: './bower_components'})
-		.pipe(bowerNormalizer({bowerJson: './bower.json'}))
-		.pipe(gulp.dest(cfg.src.lib + '/'))
 });
 gulp.task('connect', function() {
 	browserSync({
@@ -280,7 +260,7 @@ gulp.task('watch', ['connect'], function() {
 	gulp.watch([
 		cfg.src.img + '/*.{jpg,jpeg,png,gif}',
 		cfg.src.tempImg + '/*.{jpg,jpeg,png,gif}',
-		cfg.src.markups + '/**/*.{jpg,jpeg,png,gif}'
+		cfg.src.markups + '/**/' + cfg.src.modulesImg + '/*.{jpg,jpeg,png,gif}'
 	], ['imagemin', reload]);
 	// Watch image files
 	// gulp.watch('src/images/*.{jpg,jpeg,png,gif}', ['imagemin']).on("add", browserSync.reload);
@@ -295,8 +275,15 @@ gulp.task('cleanDest', function () {
 	.pipe(clean());
 });
 gulp.task('cleanAll', function () {
-	return gulp.src(['node_modules',cfg.dest.root,cfg.src.styles + '/sprites'], {read: false})
+	return gulp.src([
+		'bower_components',
+		'node_modules',
+		cfg.dest.root,
+		cfg.src.styles + '/sprites',
+		cfg.src.lib,
+		], {read: false})
 	.pipe(clean());
+	gulp.start('cleanCache');
 });
 gulp.task('copy', function() {
 	gulp.src(cfg.src.fonts)
@@ -310,6 +297,9 @@ gulp.task('pre-commit', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
 	check = true;
 	gulp.start(CSSBuilder);
 });
+function getPosixPath(path) {
+	return path.replace(/\\+/g, '/');
+}
 
 gulp.task('default', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
 	gulp.start('watch');
