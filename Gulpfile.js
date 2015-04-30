@@ -9,8 +9,12 @@ var
 	// load plugins
 	gulp					= require('gulp'),
 	// claening
-	clean					= require('gulp-clean')
-    handlebars              = require('./gulp/hb-task')(cfg);
+	clean					= require('gulp-clean'),
+	glob                    = require('glob'),
+	fs                      = require('fs'),
+	path                    = require('path'),
+	handlebars              = require('handlebars'),
+	handlebarsLayouts       = require('handlebars-layouts');
 
 gulp.task('less', ['sprite'], function () {
 	gulp.start('lessTask');
@@ -22,7 +26,44 @@ gulp.task('sass', function () {
 	return require('./gulp/sass-task')(cfg);
 });
 gulp.task('hb', function() {
-	handlebars();
+	handlebars.registerHelper(handlebarsLayouts(handlebars));
+
+	glob(cfg.src.markups + '/**/*.partial.stache', function (er, files) {
+		files.forEach(function (file) {
+			try {
+				var partialName = path.basename(file).replace(/\.partial\.stache$/, '').trim();
+
+				handlebars.registerPartial(
+					partialName,
+					fs.readFileSync(file, 'utf8')
+				);
+			}
+			catch (err) {
+				console.log(err);
+			}
+		});
+	});
+	glob(cfg.src.markups + '/*.stache', function (er, files) {
+		files.forEach(function (file) {
+			try {
+				console.log(file);
+				var template = handlebars.compile(fs.readFileSync(file, 'utf8')),
+				    output = template({
+					    pageTitle   : cfg.destJade.title,
+					    cssPath     : cfg.destJade.css,
+					    jsPath      : cfg.destJade.js,
+					    imgPath     : cfg.destJade.img,
+					    tempPath    : cfg.destJade.imgTemp,
+					    spritesPath : cfg.destJade.imgSprites
+				    });
+
+				fs.writeFile(file.replace(/\.stache$/, '.html'),  output);
+			}
+			catch (err) {
+				console.log(err);
+			}
+		});
+	});
 });
 gulp.task('jade', function() {
 	return require('./gulp/jade-task')(cfg);
