@@ -1,9 +1,9 @@
 module.exports = function (cfg) {
 	var gulp              = require('gulp'),
-	    gulpSequence      = require('gulp-sequence'),
+		gulpSequence      = require('gulp-sequence'),
 		fs                = require('fs'),
-	    handlebars        = require('handlebars'),
-	    handlebarsLayouts = require('handlebars-layouts');
+		handlebars        = require('handlebars'),
+		handlebarsLayouts = require('handlebars-layouts');
 
 	gulp.task('hbInit', function () {
 		handlebars.registerHelper(handlebarsLayouts(handlebars));
@@ -27,14 +27,14 @@ module.exports = function (cfg) {
 			.pipe(
 				foreach(function (stream, file) {
 					var template = handlebars.compile(fs.readFileSync(file.path, 'utf8')),
-					    output = template({
-						    pageTitle   : cfg.destJade.title,
-						    cssPath     : cfg.destJade.css,
-						    jsPath      : cfg.destJade.js,
-						    imgPath     : cfg.destJade.img,
-						    tempPath    : cfg.destJade.imgTemp,
-						    spritesPath : cfg.destJade.imgSprites
-					    });
+						output = template({
+							pageTitle   : cfg.destJade.title,
+							cssPath     : cfg.destJade.css,
+							jsPath      : cfg.destJade.js,
+							imgPath     : cfg.destJade.img,
+							tempPath    : cfg.destJade.imgTemp,
+							spritesPath : cfg.destJade.imgSprites
+						});
 
 					fs.writeFile(file.path.replace(/\.stache$/, '.html'), output);
 					return stream;

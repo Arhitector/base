@@ -1,7 +1,7 @@
 {{#extend 'maintemp'}}
-    {{#content 'content' mode='append'}}
-        <div class='title'>
-            title some
-        </div>
-    {{/content}}
+	{{#content 'content' mode='append'}}
+		<div class='title'>
+			title some
+		</div>
+	{{/content}}
 {{/extend}}
