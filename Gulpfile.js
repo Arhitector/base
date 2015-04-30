@@ -173,7 +173,7 @@ gulp.task('imagemin', function () {
 	return gulp.src([
 			cfg.src.img + '/*',//base image folder
 			cfg.src.tempImg + '/*',//temp image folder
-			cfg.src.modules + '/**/' + cfg.src.modulesImg + '/*'//images in modules
+			cfg.src.modules + '/**/images/*'//images in modules
 			])
 		.pipe(changed(cfg.dest.img))
 		.pipe(
@@ -204,8 +204,7 @@ gulp.task('sprite', function() {
 	])
 	.pipe(foreach(function(stream, file) {
 		var foldername = '',
-			truePath = file.path.lastIndexOf('src'),
-			truePath = file.path.substring(truePath) + "/*.png",
+			truePath = file.path.substring(file.path.lastIndexOf('src')) + "/*.png",
 			foledrSpritePathParts = getPosixPath(file.path).match(/images\/sprites/);
 			moduleSpritePathParts = getPosixPath(file.path).match(/modules\/([^\/]+)\/images\/sprites/);
 			blockSpritePathParts = getPosixPath(file.path).match(/blocks\/([^\/]+)\/images\/sprites/);
