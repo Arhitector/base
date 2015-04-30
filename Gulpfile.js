@@ -23,7 +23,8 @@ var
 	concat					= require('gulp-concat'),			//Concatenates files
 	// jade
 	jade					= require('gulp-jade'),
-	jadeInheritance			= require('gulp-jade-inheritance'),	// Rebuild a jade file with other files that have extended or included those file
+	jadeInheritance			= require('gulp-jade-inheritance'),	// Rebuild a jade file with other files that have extended or
+	                                                      // included those file
 	// imagemin
 	imagemin				= require('gulp-imagemin'),
 	changed					= require('gulp-changed'),			// Only pass through changed files
@@ -42,7 +43,9 @@ var
 	notify					= require("gulp-notify"),			// notification plugin
 	plumber					= require('gulp-plumber'),			// Prevent pipe breaking caused by errors
 	print					= require('gulp-print'),			// print files in pipe
-	gulpif					= require('gulp-if');				// 
+	gulpif					= require('gulp-if'),
+	fs                      = require('fs'),
+    handlebars              = require('./gulp/hb-task')(cfg);
 
 gulp.task('less', ['sprite'], function () {
 	gulp.start('lessTask');
@@ -104,6 +107,9 @@ gulp.task('sass', function () {
 			sass: cfg.src.styles
 		}))*/
 		.pipe(gulp.dest(cfg.dest.css));
+});
+gulp.task('hb', function() {
+	handlebars();
 });
 gulp.task('jade', function() {
 	return gulp.src(cfg.src.markups + '/*.jade')
