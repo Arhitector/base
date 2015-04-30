@@ -1,30 +1,33 @@
 module.exports = new function () {
-	var spritesmith   = require('gulp.spritesmith'),
-	    gulp          = require('gulp'),
-		gulpif        = require('gulp-if'),
-		normalizePath = require('./utils').normalizePath,
-		notify		  = require('gulp-notify');
+	var spritesmith		= require('gulp.spritesmith'),
+		gulp			= require('gulp'),
+		gulpif			= require('gulp-if'),
+		foreach			= require('gulp-foreach'),
+		path			= require('path'),
+		normalizePath	= require('./utils').normalizePath,
+		print			= require('gulp-print')
+		notify			= require('gulp-notify');
 
 	return function (cfg) {
 		return gulp.src([
 			cfg.src.sprites + '/*',
-			cfg.src.modules + '/**/' + cfg.src.modulesImg + '/' + cfg.src.modulesImgSprite + '/*',
+			cfg.src.markups + '/**/images/sprites/',
 		])
+		//.pipe(print())
 		.pipe(foreach(function (stream, file) {
 			var folderName            = '',
-			    truePath              = file.path.substring(file.path.lastIndexOf('src')) + '/*.png',
-			    folderSpritePathParts = normalizePath(file.path).match(/images\/sprites/),
-			    moduleSpritePathParts = normalizePath(file.path).match(/modules\/([^\/]+)\/images\/sprites/),
-			    mixinsSpritePathParts = normalizePath(file.path).match(/blocks\/([^\/]+)\/images\/sprites/);
-
-			if (folderSpritePathParts !== null) {
-				folderName = path.basename(file.history)
-			}
-			else if (moduleSpritePathParts !== null) {
+				truePath              = file.path.substring(file.path.lastIndexOf('src')) + '/*.png',
+				folderSpritePathParts = normalizePath(file.path).match(/images\/sprites/),
+				moduleSpritePathParts = normalizePath(file.path).match(/modules\/([^\/]+)\/images\/sprites/),
+				blocksSpritePathParts = normalizePath(file.path).match(/blocks\/([^\/]+)\/images\/sprites/);
+			if (moduleSpritePathParts !== null) {
 				folderName = moduleSpritePathParts[1];
 			}
-			else if (mixinsSpritePathParts !== null) {
-				folderName = mixinsSpritePathParts[1];
+			else if (blocksSpritePathParts !== null) {
+				folderName = blocksSpritePathParts[1];
+			}
+			else if (folderSpritePathParts !== null) {
+				folderName = path.basename(file.history)
 			}
 			return gulp.src(truePath)
 				.pipe(spritesmith({
