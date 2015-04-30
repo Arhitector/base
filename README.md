@@ -4,7 +4,6 @@ need to do:
 - watch optimization
 - base64 option doesn't work
 - sass doesn't work
-- bower task problem with sort
 - Qunit test
 - yomen
 
@@ -14,6 +13,8 @@ for using project have to install globaly:
 - npm package manager
 - bower (if you need download packeges from bower)
 - if you want use SASS need install ruby
+- all additional library(jquery, canJs, sliders, etc.) should put into src/library/{LIBRARY_NAME}
+
 
 #General
 - Begin to work - "npm install" (install nesesary packeges) then "gulp" or "npm start" to start project
@@ -23,7 +24,6 @@ for using project have to install globaly:
 	- [LESS]
 	- [JADE]
 	- [JS]
-
 
 ##LESS
 1. Compiling less in one file all.min.less (path and name for this file configurate in config.js)
@@ -53,7 +53,7 @@ for using project have to install globaly:
 1. General sprites must lie in src/images/sprites/
 	- name folder become a name sprite img and will be sent to destanation img folder. Example: s-FOLDERNAME.png
 	- name folder become a name sprite less and will be sent to "src/styles/components" folder. Example: s-FOLDERNAME.less
-2. Sprites of modules must be in module folder ->/img/sprite/
+2. Sprites of modules must be in module folder ->/images/sprites/
 	- - name module become a name sprite img and will be sent to destanation img folder. Example: s-MOUDLENAME.png
 	- name module become a name sprite less and will be sent to "src/styles/components" folder. Example: s-FOLDERNAME.less
 3. after generation LESS task starts.

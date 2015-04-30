@@ -1,8 +1,7 @@
 var
 	// load variables file
-	check					= false,
 	cfg						= require('./config.js'),
-	CSSBuilder				= cfg.cssBuilder
+	cssBuilder				= cfg.cssBuilder,
 	// load plugins
 	gulp					= require('gulp'),
 	// servar/watch
@@ -173,7 +172,7 @@ gulp.task('imagemin', function () {
 	return gulp.src([
 			cfg.src.img + '/*',//base image folder
 			cfg.src.tempImg + '/*',//temp image folder
-			cfg.src.modules + '/**/' + cfg.src.modulesImg + '/*'//images in modules
+			cfg.src.markups + '/**/images/*'//images in markups
 			])
 		.pipe(changed(cfg.dest.img))
 		.pipe(
@@ -213,7 +212,7 @@ gulp.task('connect', function() {
 });
 gulp.task('watch', ['connect'], function() {
 	// Watch styles files
-	gulp.watch(cfg.src.root + '/**/*.' + CSSBuilder, [CSSBuilder, reload]);
+	gulp.watch(cfg.src.root + '/**/*.' + cssBuilder, [cssBuilder, reload]);
 	// Watch .jade files
 	gulp.watch(cfg.src.root + '/**/*.jade', ['jade', reload]);
 	// Watch .json files
@@ -222,7 +221,7 @@ gulp.task('watch', ['connect'], function() {
 	gulp.watch([
 		cfg.src.img + '/*.{jpg,jpeg,png,gif}',
 		cfg.src.tempImg + '/*.{jpg,jpeg,png,gif}',
-		cfg.src.markups + '/**/' + cfg.src.modulesImg + '/*.{jpg,jpeg,png,gif}'
+		cfg.src.markups + '/**/**/images/sprites/*.{jpg,jpeg,png,gif}'
 	], ['imagemin', reload]);
 	// Watch image files
 	// gulp.watch('src/images/*.{jpg,jpeg,png,gif}', ['imagemin']).on("add", browserSync.reload);
@@ -255,14 +254,13 @@ gulp.task('hook', function () {
 	gulp.src('pre-commit')
 	.pipe(gulp.dest('.git/hooks/'));
 });
-gulp.task('pre-commit', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
-	check = true;
-	gulp.start(CSSBuilder);
+gulp.task('pre-commit', [cssBuilder, 'jade', 'js', 'imagemin'], function() {
+	//gulp.start(cssBuilder);
 });
 gulp.task('default', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
 	gulp.start('watch');
 });
 gulp.task('prod', function() {
 	cfg = require('./prod-config.js')
-	gulp.start('jade', CSSBuilder, 'js', 'imagemin');
+	gulp.start('jade', cssBuilder, 'js', 'imagemin');
 });
