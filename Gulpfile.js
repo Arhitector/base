@@ -8,14 +8,10 @@ var
 	reload					= browserSync.reload,
 	// load plugins
 	gulp					= require('gulp'),
-	// claening
 	clean					= require('gulp-clean'),
-	glob                    = require('glob'),
-	fs                      = require('fs'),
 	path                    = require('path'),
 	foreach                 = require('gulp-foreach'),
-	handlebars              = require('handlebars'),
-	handlebarsLayouts       = require('handlebars-layouts');
+	handlebarsTask          = require('./gulp/hb-task.js')(cfg);
 
 gulp.task('less', ['sprite'], function () {
 	gulp.start('lessTask');
@@ -26,55 +22,8 @@ gulp.task('lessTask', function () {
 gulp.task('sass', function () {
 	return require('./gulp/sass-task')(cfg);
 });
-gulp.task('hbInit', function() {
-	handlebars.registerHelper(handlebarsLayouts(handlebars));
-
-	return gulp.src(cfg.src.markups + '/**/*.partial.stache')
-	.pipe(foreach(function (stream, file) {
-		try {
-			fs.readFile(file.path, {encoding: 'utf8'}, function (err, data) {
-				if (err) {
-					console.log(err);
-				}
-				else {
-					try {
-						var partialName = path.basename(file.path).replace(/\.partial\.stache$/, '').trim();
-						handlebars.registerPartial(
-							partialName,
-							data
-						);
-					}
-					catch (err) {
-						console.log(err);
-					}
-				}
-			});
-		}
-		catch (err) {
-			console.log(err);
-		}
-		return stream;
-	}));
-});
-gulp.task('hb', ['hbInit'], function() {
-	gulp.src(cfg.src.markups + '/*.stache')
-	.pipe(foreach(function (stream, file) {
-		try {
-			var template = handlebars.compile(fs.readFileSync(file.path, 'utf8')),
-			output   = template({
-				pageTitle  : cfg.destJade.title,
-				cssPath    : cfg.destJade.css,
-				jsPath     : cfg.destJade.js,
-				imgPath    : cfg.destJade.img,
-				tempPath   : cfg.destJade.imgTemp,
-				spritesPath: cfg.destJade.imgSprites
-			});
-			fs.writeFile(file.path.replace(/\.stache$/, '.html'), output);
-		}
-		catch (err) {
-			console.log(err);
-		}
-	}));
+gulp.task('hb', function() {
+	return handlebarsTask();
 });
 gulp.task('jade', function() {
 	return require('./gulp/jade-task')(cfg);
