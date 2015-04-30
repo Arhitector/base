@@ -1,5 +1,6 @@
 module.exports = new function () {
 	var spritesmith   = require('gulp.spritesmith'),
+	    gulp          = require('gulp'),
 		gulpif        = require('gulp-if'),
 		normalizePath = require('./utils').normalizePath,
 		notify		  = require('gulp-notify');
