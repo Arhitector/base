@@ -1,6 +1,7 @@
 module.exports = new function () {
 	// base path 
-	this.CSSBuilder				= "less"; //chouse compiller : less sass
+	this.CSSBuilder				= "less"; //chouse compiller : less, sass
+	this.HTMLcompiller			= "jade" //chouse html compiller : jade, handlebars
 	this.cPort					= 8050; // port server http://localhost:8050
 	this.base64Enable			= true; // Is it need to use base64 convert image in css
 	this.SystemNotify			= true; // is it need to notify about successful compilation
@@ -15,8 +16,8 @@ module.exports = new function () {
 	this.src.img				= this.src.root + '/images';
 	this.src.sprites			= this.src.img + '/sprites';
 	this.src.tempImg			= this.src.img + '/temp';
-	this.src.modulesImg			= this.src.modules + '/img';
-	this.src.modulesImgSprite	= this.src.modules + '/sprite';
+	this.src.modulesImg			= this.src.modules + '/images';
+	this.src.modulesImgSprite	= this.src.modules + '/sprites';
 	this.src.markups			= this.src.root + '/markups';
 	this.src.modules			= this.src.markups + '/modules';
 	this.src.fonts				= this.src.root + '/fonts';

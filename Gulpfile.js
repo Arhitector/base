@@ -200,23 +200,21 @@ gulp.task('imagemin', function () {
 gulp.task('sprite', function() {
 	return gulp.src([
 		cfg.src.sprites + '/*',
-		cfg.src.modules + '/**/' + cfg.src.modulesImg + '/' + cfg.src.modulesImgSprite + '/*',
+		cfg.src.root + '/**/**/' + cfg.src.modulesImg + '/' + cfg.src.modulesImgSprite + '/*',
 	])
 	.pipe(foreach(function(stream, file) {
 		var foldername = '',
 			truePath = file.path.lastIndexOf('src'),
 			truePath = file.path.substring(truePath) + "/*.png",
 			foledrSpritePathParts = getPosixPath(file.path).match(/images\/sprites/);
-			moduleSpritePathParts = getPosixPath(file.path).match(/modules\/([^\/]+)\/img\/sprite/);
-			mixinsSpritePathParts = getPosixPath(file.path).match(/blocks\/([^\/]+)\/img\/sprite/);
-			moduleSpritePathParts = getPosixPath(file.path).match(/modules\/([^\/]+)\/images\/sprite/);
-			mixinsSpritePathParts = getPosixPath(file.path).match(/blocks\/([^\/]+)\/images\/sprite/);
+			moduleSpritePathParts = getPosixPath(file.path).match(/modules\/([^\/]+)\/images\/sprites/);
+			blockSpritePathParts = getPosixPath(file.path).match(/blocks\/([^\/]+)\/images\/sprites/);
 			if (foledrSpritePathParts !== null) {
 				foldername = path.basename(file.history)
 			} else if (moduleSpritePathParts !== null) {
 				foldername = moduleSpritePathParts[1];
-			} else if (mixinsSpritePathParts !== null) {
-				foldername = mixinsSpritePathParts[1];
+			} else if (blockSpritePathParts !== null) {
+				foldername = blockSpritePathParts[1];
 			};
 		return gulp.src(truePath)
 			.pipe(spritesmith({

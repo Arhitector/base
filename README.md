@@ -53,7 +53,7 @@ for using project have to install globaly:
 1. General sprites must lie in src/images/sprites/
 	- name folder become a name sprite img and will be sent to destanation img folder. Example: s-FOLDERNAME.png
 	- name folder become a name sprite less and will be sent to "src/styles/components" folder. Example: s-FOLDERNAME.less
-2. Sprites of modules must be in module folder ->/img/sprite/
+2. Sprites of modules must be in module folder ->/images/sprites/
 	- - name module become a name sprite img and will be sent to destanation img folder. Example: s-MOUDLENAME.png
 	- name module become a name sprite less and will be sent to "src/styles/components" folder. Example: s-FOLDERNAME.less
 3. after generation LESS task starts.
