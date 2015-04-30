@@ -1,13 +1,13 @@
 module.exports = new function () {
 	// base path 
-	this.CSSBuilder				= "less"; //chouse compiller : less sass
+	this.cssBuilder				= "less"; //chouse compiller : less sass
 	this.cPort					= 8050; // port server http://localhost:8050
 	this.base64Enable			= true; // Is it need to use base64 convert image in css
 	this.SystemNotify			= true; // is it need to notify about successful compilation
 	// source path and variables
 	this.src					= {};
 	this.src.root				= './src';
-	this.src.styles				= this.src.root + '/styles/' + this.CSSBuilder;
+	this.src.styles				= this.src.root + '/styles/' + this.cssBuilder;
 	this.src.base64Size			= 8*1024 //size img to base64 DOESN'T work
 	this.src.browserSupport		= 'last 2 versions';
 	this.src.allCss				= 'all.min.css';

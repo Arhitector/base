@@ -2,7 +2,7 @@ var
 	// load variables file
 	check					= false,
 	cfg						= require('./config.js'),
-	CSSBuilder				= cfg.CSSBuilder
+	CSSBuilder				= cfg.cssBuilder
 	// load plugins
 	gulp					= require('gulp'),
 	// servar/watch
@@ -31,7 +31,7 @@ var
 	cache					= require('gulp-cache'),			// caching proxy task
 	flatten					= require('gulp-flatten'),			// remove or replace relative path for files
 	// spritesmith
-	spritesmith				= require('gulp.spritesmith'),
+	//spritesmith				= require('gulp.spritesmith'),
 	pngquant				= require('imagemin-pngquant'),
 	foreach					= require('gulp-foreach'),
 	// claening
@@ -198,45 +198,7 @@ gulp.task('imagemin', function () {
 		);
 });
 gulp.task('sprite', function() {
-	return gulp.src([
-		cfg.src.sprites + '/*',
-		cfg.src.modules + '/**/' + cfg.src.modulesImg + '/' + cfg.src.modulesImgSprite + '/*',
-	])
-	.pipe(foreach(function(stream, file) {
-		var foldername = '',
-			truePath = file.path.lastIndexOf('src'),
-			truePath = file.path.substring(truePath) + "/*.png",
-			foledrSpritePathParts = getPosixPath(file.path).match(/images\/sprites/);
-			moduleSpritePathParts = getPosixPath(file.path).match(/modules\/([^\/]+)\/img\/sprite/);
-			mixinsSpritePathParts = getPosixPath(file.path).match(/blocks\/([^\/]+)\/img\/sprite/);
-			moduleSpritePathParts = getPosixPath(file.path).match(/modules\/([^\/]+)\/images\/sprite/);
-			mixinsSpritePathParts = getPosixPath(file.path).match(/blocks\/([^\/]+)\/images\/sprite/);
-			if (foledrSpritePathParts !== null) {
-				foldername = path.basename(file.history)
-			} else if (moduleSpritePathParts !== null) {
-				foldername = moduleSpritePathParts[1];
-			} else if (mixinsSpritePathParts !== null) {
-				foldername = mixinsSpritePathParts[1];
-			};
-		return gulp.src(truePath)
-			.pipe(spritesmith({
-				imgName: 'sprite-' + foldername + '.png',
-				cssName: 'sprite-' + foldername + '.' + CSSBuilder,
-				imgPath: '../' + cfg.destJade.imgSprites + '/sprite-' + foldername + '.png',
-				cssFormat: CSSBuilder,
-				algorithm: 'binary-tree',
-				padding: 10,
-				cssTemplate: cfg.src.styles + '/helpers/' + CSSBuilder + '.template.mustache'
-			}))
-			.pipe(gulpif('*.png', gulp.dest(cfg.dest.img)))
-			.pipe(gulpif('*.' + CSSBuilder, gulp.dest(cfg.src.styles + '/sprites')));
-	}))
-	.pipe(
-		gulpif(
-			cfg.SystemNotify,
-			notify("Sprite <%= file.relative %> created!")
-		)
-	);
+	return require('./gulp/sprite-task')(cfg);
 });
 gulp.task('connect', function() {
 	browserSync({
@@ -297,10 +259,6 @@ gulp.task('pre-commit', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
 	check = true;
 	gulp.start(CSSBuilder);
 });
-function getPosixPath(path) {
-	return path.replace(/\\+/g, '/');
-}
-
 gulp.task('default', [CSSBuilder, 'jade', 'js', 'imagemin'], function() {
 	gulp.start('watch');
 });
