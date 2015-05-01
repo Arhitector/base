@@ -5,10 +5,29 @@ module.exports = function (cfg) {
 		fs                = require('fs'),
 		path              = require('path'),
 		handlebars        = require('handlebars'),
-		handlebarsLayouts = require('handlebars-layouts');
+		handlebarsLayouts = require('handlebars-layouts'),
+		underscore        = require('underscore');
 
-	gulp.task('hbInit', function () {
+	gulp.task('handlebarsInit', function () {
 		handlebars.registerHelper(handlebarsLayouts(handlebars));
+
+		handlebars.registerHelper('mixin', function (name, options) {
+			var context  = underscore.clone(this),
+				output   = '',
+				template,
+				filePath = cfg.src.markups +
+					(name.indexOf('/') === -1 ? '/mixins/' + name : '/' + name);
+
+			if (filePath.indexOf('.stache') === -1) {
+				filePath += '.stache';
+			}
+			if (fs.existsSync(filePath)) {
+				context = underscore.extend(context, options.hash || {});
+				template = handlebars.compile(fs.readFileSync(filePath, 'utf8'));
+				output = new handlebars.SafeString(template(context));
+			}
+			return output;
+		});
 
 		return gulp
 			.src(cfg.src.markups + '/**/*.partial.stache')
@@ -39,7 +58,7 @@ module.exports = function (cfg) {
 			}));
 	});
 
-	gulp.task('hbRun', function () {
+	gulp.task('handlebarsRun', function () {
 		return gulp.src(cfg.src.markups + '/*.stache')
 			.pipe(foreach(function (stream, file) {
 				try {
@@ -61,6 +80,6 @@ module.exports = function (cfg) {
 	});
 
 	return function () {
-		return gulpSequence('hbInit', 'hbRun')();
+		return gulpSequence('handlebarsInit', 'handlebarsRun')();
 	};
 };

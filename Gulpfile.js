@@ -11,7 +11,7 @@ var
 	clean					= require('gulp-clean'),
 	path                    = require('path'),
 	foreach                 = require('gulp-foreach'),
-	handlebarsTask          = require('./gulp/hb-task.js')(cfg);
+	handlebarsTask          = require('./gulp/handlebars-task.js')(cfg);
 
 gulp.task('less', ['sprite'], function () {
 	gulp.start('lessTask');
@@ -22,7 +22,7 @@ gulp.task('lessTask', function () {
 gulp.task('sass', function () {
 	return require('./gulp/sass-task')(cfg);
 });
-gulp.task('hb', function() {
+gulp.task('hbs', function() {
 	return handlebarsTask();
 });
 gulp.task('jade', function() {

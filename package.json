@@ -51,6 +51,7 @@
     "gulp-sequence": "^0.3.2",
     "handlebars": "^3.0.3",
     "handlebars-layouts": "^2.0.2",
-    "main-bower-files": "^2.7.0"
+    "main-bower-files": "^2.7.0",
+    "underscore": "^1.8.3"
   }
 }
