@@ -9,9 +9,9 @@ var
 	// load plugins
 	gulp					= require('gulp'),
 	clean					= require('gulp-clean'),
-	path					= require('path'),
-	foreach					= require('gulp-foreach'),
-	handlebarsTask			= require('./gulp/hb-task.js')(cfg);
+	path                    = require('path'),
+	foreach                 = require('gulp-foreach'),
+	handlebarsTask          = require('./gulp/handlebars-task.js')(cfg);
 
 gulp.task('less', ['sprite'], function () {
 	gulp.start('lessTask');
@@ -22,7 +22,11 @@ gulp.task('lessTask', function () {
 gulp.task('sass', function () {
 	return require('./gulp/sass-task')(cfg);
 });
+<<<<<<< HEAD
 gulp.task('handlebars', function() {
+=======
+gulp.task('hbs', function() {
+>>>>>>> c9c182125bb94c3e89e416ced2e12a8cc3ec5912
 	return handlebarsTask();
 });
 gulp.task('jade', function() {

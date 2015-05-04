@@ -3,5 +3,7 @@
 		<div class='title'>
 			title some
 		</div>
+		{{mixin 'title' title='Hey man, I\'m roboman!'}}
+		{{mixin 'custom/greeting' greeting='Hey in JS!'}}
 	{{/content}}
 {{/extend}}
