@@ -1,7 +1,7 @@
 module.exports = new function () {
 	// base path 
 	this.cssBuilder				= 'less'; //chouse compiller : less, sass
-	this.htmlCompiller			= 'jade'; //chouse html compiller : jade, handlebars
+	this.htmlCompiller			= 'handlebars'; //chouse html compiller : jade, handlebars
 	this.cPort					= 8050; // port server http://localhost:8050
 	this.base64Enable			= false; // Is it need to use base64 convert image in css
 	this.SystemNotify			= true; // is it need to notify about successful compilation

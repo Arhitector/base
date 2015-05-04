@@ -2,21 +2,21 @@
 <html lang="en">
 	{{#embed 'head'}}{{/embed}}
 	<body>
-        <div class="wrapper">
-            <header class="header">
-                {{#embed 'header'}}{{/embed}}
-                {{#block 'header'}}
-                {{/block}}
-            </header>
-            <main class="content">
-                {{#block 'content'}}
-                {{/block}}
-            </main>
-            <footer class="footer">
-                {{#embed 'footer'}}{{/embed}}
-                {{#block 'footer'}}
-                {{/block}}
-            </footer>
-        </div>
+		<div class="wrapper">
+			<header class="header">
+				{{#embed 'header'}}{{/embed}}
+				{{#block 'header'}}
+				{{/block}}
+			</header>
+			<main class="content">
+				{{#block 'content'}}
+				{{/block}}
+			</main>
+			<footer class="footer">
+				{{#embed 'footer'}}{{/embed}}
+				{{#block 'footer'}}
+				{{/block}}
+			</footer>
+		</div>
 	</body>
 </html>

@@ -22,7 +22,7 @@ gulp.task('lessTask', function () {
 gulp.task('sass', function () {
 	return require('./gulp/sass-task')(cfg);
 });
-gulp.task('hb', function() {
+gulp.task('handlebars', function() {
 	return handlebarsTask();
 });
 gulp.task('jade', function() {
