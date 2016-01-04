@@ -1,0 +1,10 @@
+<li>
+	{{#if isLink}}
+		<a {{{attributes attrs}}}>{{{text}}}</a>
+	{{else}}
+		<span {{{attributes attrs}}}>{{{text}}}</span>
+	{{/if}}
+	{{#if hasSubMenu}}
+		{{>menu-list-sub}}
+	{{/if}}
+</li>

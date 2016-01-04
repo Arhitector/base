@@ -1,0 +1,6 @@
+mixin cloudinary(src, placeholder)
+	- var placeholder = placeholder || defaultPlaceholder;
+	if src
+		img(data-src=src src=placeholder)&attributes(attributes)
+	else
+		img(src=placeholder)&attributes(attributes)

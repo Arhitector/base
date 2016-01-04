@@ -1,7 +1,0 @@
-# less path to img without variables
-# less fail compilation files
-# jade path to img without variables
-# jade fail compilation files
-# js problem with compilation
-
-/usr/local/bin/gulp pre-commit

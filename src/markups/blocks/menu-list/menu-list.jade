@@ -1,20 +1,15 @@
-mixin menu-list (data, menu_name)
-	+menu-list_conteiner(data, menu_name)
+mixin menu-list-container (menu, level)
+	- var level = level || 0;
+	- level += 1;
+	each item in menu
+		- var tag = item.type === 'text' ? 'span' : 'a', attributes = item.attributes || {};
+		li
+			#{tag}&attributes(attributes).
+				#{item.text}
+		if item.items
+			ul(class="#{id}--level#{level}")
+				+menu-list-container(item.items, level)
 
-mixin menu-list_conteiner (data, menu_name)
-	each item, key in data
-		if typeof item === 'object'
-			if key.indexOf('item') != -1
-				+menu-list_conteiner(item, menu_name)
-			else
-				#{key}(class="#{menu_name}_l#{menu_level}")
-					each val, index in data
-						+menu-list_conteiner(item, menu_name)
-		else
-			#{key} #{item}
-
-mixin menu-list_parse-object (data, menu_name)
-	each item, key in data
-		#{key}(class="#{menu_name}_l#{menu_level}")
-			each val, index in data
-				+menu-list_conteiner(item, menu_name)
+mixin menu-list (id, menu)
+	ul(id=id class="#{id}")
+		+menu-list-container(menu.items)

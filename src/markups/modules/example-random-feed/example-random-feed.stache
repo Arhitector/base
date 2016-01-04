@@ -1,0 +1,13 @@
+{{#each posts}}
+	<div class="example-random-feed__post">
+        <div class="example-random-feed__post_image">
+			<a href="{{image}}" data-lightbox="example-random-feed__post_image-{{@index}}"><img src="{{image}}" /></a>
+		</div>
+        <div class="example-random-feed__post_title">
+			{{{title}}}
+        </div>
+        <div class="example-random-feed__post_content">
+			{{{content}}}
+        </div>
+	</div>
+{{/each}}

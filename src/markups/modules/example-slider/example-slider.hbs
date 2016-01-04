@@ -1,0 +1,20 @@
+<div id="{{id}}">
+	<div class="swiper-container example-slider">
+		<div class="swiper-wrapper">
+			{{#each data.slides}}
+				<div class="swiper-slide example-slider__slide">
+					<div>{{title}}</div>
+					<div>{{content}}</div>
+				</div>
+			{{/each}}
+		</div>
+		<div class="swiper-pagination"></div>
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+	</div>
+</div>
+<script>
+    steal('modules/example-slider', function (slider) {
+        slider('#{{id}}', {});
+    });
+</script>

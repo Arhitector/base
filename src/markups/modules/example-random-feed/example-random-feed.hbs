@@ -1,0 +1,10 @@
+<div id="{{id}}">
+	<div class="example-random-feed__posts"></div>
+</div>
+<script>
+    steal.import('modules/example-random-feed/example-random-feed').then(function (feed) {
+        new feed('#{{id}}', {
+			feedUrl: '{{data.feedUrl}}'
+		});
+    });
+</script>

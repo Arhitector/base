@@ -1,0 +1,18 @@
+- var data = getData(path);
+
+div(id="#{id}")
+	.swiper-container.example-slider
+		.swiper-wrapper
+			each slide in data.slides
+				.swiper-slide.example-slider__slide
+					div.
+						#{slide.title}
+					div.
+						#{slide.content}
+		.swiper-pagination
+		.swiper-button-prev
+		.swiper-button-next
+script.
+	steal('modules/example-slider', function (slider) {
+		new slider('#{id}', {});
+	});

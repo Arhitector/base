@@ -1,0 +1,19 @@
+extends templates/base-template
+
+block head
+block header
+block content
+	- var title = "Hey, I'm roboman!"
+	include blocks/title/title
+	- var id = "ex-rand-f-1", path = "modules/example-random-feed/example-random-feed.json"
+	include modules/example-random-feed/example-random-feed
+	- var id = "ex-sl-1", path = "modules/example-slider/example-slider.json"
+	include modules/example-slider/example-slider
+	- var id = "menu1", path = "modules/menu/menu.json"
+	include modules/menu/menu
+	+cloudinary
+	+cloudinary('', '/pics/test-placeholder.png')
+	+cloudinary('test.png')(data-radius=20).image--medium
+block footer
+	- var path = "modules/footer/footer.powered.json"
+	include blocks/footer-powered/footer-powered

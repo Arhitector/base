@@ -1,5 +1,0 @@
-{{#if greeting}}
-    <script type="text/javascript">
-        alert("{{greeting}}");
-    </script>
-{{/if}}

@@ -1,0 +1,22 @@
+{{#extend 'maintemp'}}
+	{{#content 'content' mode='append'}}
+		<div class='title'>
+			{{mixin 'title' title='Hey man, I\'m roboman !!! :)'}}
+		</div>
+		{{mixin 'modules/example-slider/example-slider'
+			id='ex-slider-1'
+			path='modules/example-slider/example-slider.json'
+		}}
+		{{mixin 'modules/example-random-feed/example-random-feed'
+			id='ex-rand-feed-1'
+			path='modules/example-random-feed/example-random-feed.json'
+		}}
+		{{mixin 'modules/menu/menu'
+			id='menu1'
+			path='modules/menu/menu.json'
+		}}
+		{{{cloudinary}}}
+		{{{cloudinary placeholder='/pics/test.png'}}}
+		{{{cloudinary 'test.png' classNames='["image--medium"]' attributes='{"data-radius": 50}'}}}
+	{{/content}}
+{{/extend}}

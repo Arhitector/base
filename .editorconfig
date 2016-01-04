@@ -1,0 +1,16 @@
+root = true
+
+[*.{css,less,scss}]
+indent_style = tab
+
+[*.{hbs,stache,mustache,jade,html,xml}]
+indent_style = tab
+
+[*.{js,coffee}]
+indent_style = tab
+
+[*.json]
+indent_style = tab
+
+[*.{md,txt}]
+indent_style = tab

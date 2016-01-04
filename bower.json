@@ -1,12 +1,43 @@
 {
-  "name": "my-project",
-  "version": "1.0.0",
-  "ignore": [
-    ".jshintrc",
-    "**/*.txt"
-  ],
+  "name": "FrontEnd-Project-Gulp",
+  "version": "0.2.0",
   "dependencies": {
-    "jquery": "~1.7.2",
-    "canjs": "~2.2.5"
+	"swiper": "~3.0.7",
+	"moment": "~2.10.3",
+	"cloudinary": "~1.0.24",
+	"jquery-ui": "~1.11.4",
+	"jquery": "~2.1.4",
+	"lodash": "~3.9.3",
+	"steal": "~0.10.5"
+  },
+  "system": {
+	"paths": {
+	  "can": "./bower_components/canjs/steal/can/can.js",
+	  "can/*": "./bower_components/canjs/steal/can/*.js",
+	  "cloudinary/cloudinary": "./bower_components/cloudinary/js/jquery.cloudinary.js",
+	  "jquery.ui.widget": "./bower_components/jquery-ui/ui/widget.js",
+	  "jquery.iframe-transport": "./bower_components/blueimp-file-upload/js/jquery.iframe-transport.js",
+	  "jquery.fileupload": "./bower_components/blueimp-file-upload/js/jquery.fileupload.js",
+	  "jquery": "./bower_components/jquery/dist/jquery.js",
+	  "scripts/*": "./src/scripts/*.js",
+	  "vendor/*": "./src/vendor/*.js",
+	  "modules/*": "./src/markups/modules/*.js"
+	},
+	"map": {
+	  "jquery/jquery": "./bower_components/jquery/dist/jquery"
+	},
+	"ext": {
+	  "stache": "can/view/stache/system"
+	},
+	"meta": {
+	  "jquery": {
+		"format": "global"
+	  }
+	},
+	"buildOptions": {
+	  "map": {
+		"can/util/util": "can/util/domless/domless"
+	  }
+	}
   }
 }

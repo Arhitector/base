@@ -1,1 +1,3 @@
-document.getElementById("demo").innerHTML="header script";
+define(function () {
+	return {};
+});

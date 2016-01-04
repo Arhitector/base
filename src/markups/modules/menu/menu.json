@@ -1,0 +1,107 @@
+{
+  "menu1": {
+	"items": [
+	  {
+		"text": "home",
+		"type": "link",
+		"attributes": {
+		  "href": "#"
+		}
+	  },
+	  {
+		"text": "services",
+		"type": "link",
+		"attributes": {
+		  "href": "#"
+		},
+		"items": [
+		  {
+			"text": "service 1",
+			"type": "link",
+			"attributes": {
+			  "href": "#"
+			}
+		  },
+		  {
+			"text": "service 2",
+			"type": "link",
+			"attributes": {
+			  "href": "#"
+			}
+		  },
+		  {
+			"text": "service 3",
+			"type": "link",
+			"attributes": {
+			  "href": "#"
+			}
+		  }
+		]
+	  },
+	  {
+		"text": "team",
+		"type": "link",
+		"attributes": {
+		  "href": "#"
+		},
+		"items": [
+		  {
+			"text": "team 1",
+			"type": "link",
+			"attributes": {
+			  "href": "#"
+			}
+		  },
+		  {
+			"text": "team 2",
+			"type": "link",
+			"attributes": {
+			  "href": "#"
+			}
+		  },
+		  {
+			"text": "team 3",
+			"type": "link",
+			"attributes": {
+			  "href": "#"
+			},
+			"items": [
+			  {
+				"text": "sub team 1",
+				"type": "link",
+				"attributes": {
+				  "href": "#"
+				}
+			  },
+			  {
+				"text": "sub team 2",
+				"type": "link",
+				"attributes": {
+				  "href": "#"
+				}
+			  }
+			]
+		  },
+		  {
+			"text": "team 4",
+			"type": "link",
+			"attributes": {
+			  "href": "#"
+			}
+		  }
+		]
+	  },
+	  {
+		"text": "about",
+		"type": "link",
+		"attributes": {
+		  "href": "#"
+		}
+	  },
+	  {
+		"text": "contacts",
+		"type": "text"
+	  }
+	]
+  }
+}

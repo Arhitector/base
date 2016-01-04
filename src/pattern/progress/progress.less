@@ -1,0 +1,39 @@
+//- round progress
+@progress-height: 20px;
+@progress-width: 200px;
+@progress-inner-space: 2px 3px;
+
+@progress-radius-radius: 12px;
+@progress-radius-progres-color: #00ff00;
+
+.p-progress {
+	&_radius {
+		&:extend(.p-progress__helper);
+		border-radius: @progress-radius-radius;
+		.p-progress__inner {
+			border-radius: @progress-radius-radius;
+			background-color: @progress-radius-progres-color;
+		}
+	}
+	&_corner {
+		transform: rotate(45deg);
+		overflow: hidden;
+	}
+	&__envelope {
+		&:extend(.p-progress__helper);
+		transform: rotate(-45deg);
+	}
+	&_round {}
+	&__inner {
+		background-color: ;
+	}
+	&__text {
+
+	}
+	.p-text {}
+}
+.p-progress__helper {
+	width: @progress-width;
+	height: @progress-height;
+	padding: @progress-inner-space;
+}

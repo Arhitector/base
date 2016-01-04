@@ -1,0 +1,10 @@
+- var data = getData(path);
+
+div(id='#{id}')
+	.example-random-feed__posts
+script.
+	steal.import('modules/example-random-feed/example-random-feed').then(function (feed) {
+		new feed('#{id}', {
+			feedUrl: '#{data.feedUrl}'
+		});
+	});

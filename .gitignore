@@ -1,19 +1,48 @@
-# OS generated files #
-######################
+#
+# Mac OS
+#
 .DS_Store
 .DS_Store?
 .Spotlight-V100
-.sass-cache/*
 .Trashes
+
+#
+# Windows
+#
 ehthumbs.db
 Thumbs.db
-npm-debug.log
-/bower_components/*
-/node_modules/*
-/source/*
-/src/styles/sprites/*
+
+#
+# IDE
+#
 /.idea
-/www/*
-/prod/*
 /*.iml
 
+#
+# Local installation
+#
+/bower_components/*
+/node_modules/*
+
+#
+# Logs
+#
+npm-debug.log
+
+#
+# Cache & temp
+#
+.sass-cache/*
+
+#
+# Local environment
+#
+/src/styles/sprites/*
+/www/*
+/prod/*
+/nbproject
+/nbproject/private/
+/tests
+/temp
+/source
+source
